@@ -1,5 +1,8 @@
-import { Router } from "express";
+const express = require('express');
+const auth = require('../routes/auth.routes');
 
-const routes = Router();
+const routes = express.Router();
+
+routes.use('/auth', auth);
 
 module.exports = routes;
