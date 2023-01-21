@@ -21,12 +21,12 @@ module.exports = (sequelize, DataTypes) => {
 
     UserTable.associate = ({ Sale }) => {
         UserTable.hasMany(Sale, {
-            as: "sales",
+            as: "costumer",
             foreignKey: "user_id",
         });
 
         UserTable.hasMany(Sale, {
-            as: "sales",
+            as: "seller",
             foreignKey: "seller_id",
         });
     };
