@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const SaleTable = sequelize.define(
-        "Sale",
+        "sale",
         {
             id: {
                 type: DataTypes.INTEGER,
@@ -21,13 +21,13 @@ module.exports = (sequelize, DataTypes) => {
         },
     );
 
-    SaleTable.associate = ({ User }) => {
-        SaleTable.belongsTo(User, {
+    SaleTable.associate = ({ user }) => {
+        SaleTable.belongsTo(user, {
             as: "costumer",
             foreignKey: "id",
         });
 
-        SaleTable.belongsTo(User, {
+        SaleTable.belongsTo(user, {
             as: "seller",
             foreignKey: "id",
         });

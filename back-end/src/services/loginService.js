@@ -1,10 +1,9 @@
-const md5 = require('md5');
-const { User } = require('../database/models');
+const { user } = require('../database/models');
 
 const getAccount = async () => {
 
   // Requisição ao banco de dados para retornar a conta
-  const account = await User.findAll();
+  const account = await user.findAll();
 
 return account
 };

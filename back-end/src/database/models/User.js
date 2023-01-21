@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const UserTable = sequelize.define(
-        "User",
+        "user",
         {
             id: {
                 type: DataTypes.INTEGER,
@@ -19,13 +19,13 @@ module.exports = (sequelize, DataTypes) => {
         },
     );
 
-    UserTable.associate = ({ Sale }) => {
-        UserTable.hasMany(Sale, {
+    UserTable.associate = ({ sale }) => {
+        UserTable.hasMany(sale, {
             as: "costumer",
             foreignKey: "user_id",
         });
 
-        UserTable.hasMany(Sale, {
+        UserTable.hasMany(sale, {
             as: "seller",
             foreignKey: "seller_id",
         });
