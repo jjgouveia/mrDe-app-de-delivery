@@ -1,11 +1,9 @@
 const express = require('express');
-const { getAccount } = require('../services/loginService');
+const rescue = require('express-rescue');
+const controller = require('../controllers/login.controller');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
-    const t = await getAccount();
-    res.status(200).send(t);
-});
+router.post('/', rescue((req, res) => controller.loginRequest(req, res)));
 
 module.exports = router;

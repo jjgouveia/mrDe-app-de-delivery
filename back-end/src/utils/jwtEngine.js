@@ -1,9 +1,9 @@
-import { sign, verify } from 'jsonwebtoken';
-import HttpException from './http.exception';
+const { sign, verify } = require('jsonwebtoken');
+const HttpException = require('./http.exception');
 
 require('dotenv/config');
 
-export const createToken = (data) => {
+const createToken = (data) => {
     const token = sign(
         { data },
         process.env.JWT_SECRET,
@@ -16,7 +16,7 @@ export const createToken = (data) => {
     return token;
 };
 
-export const validateToken = (token = null) => {
+const validateToken = (token = null) => {
     if (!token) throw new Error('Token not found');
 
     try {
@@ -26,3 +26,8 @@ export const validateToken = (token = null) => {
         throw new HttpException(401, 'Expired or Invalid Token');
     }
 };
+
+module.exports = {
+    createToken,
+    validateToken,
+}
