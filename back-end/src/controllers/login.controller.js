@@ -5,8 +5,8 @@ const loginRequest = async (req, res) => {
     const request = await service.requestLogin(email, password);
 
     return res.status(200).json(request);
-}
+};
 
 module.exports = {
-    loginRequest
-}
+    loginRequest,
+};

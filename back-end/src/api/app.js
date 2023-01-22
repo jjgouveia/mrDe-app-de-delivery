@@ -12,6 +12,6 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.get('/', (_req, res) => res.redirect('/login'));
 
-app.use(routes)
+app.use(routes);
 
 module.exports = app;

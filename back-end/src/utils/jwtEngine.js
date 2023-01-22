@@ -10,7 +10,7 @@ const createToken = (data) => {
         {
             expiresIn: '1d',
             algorithm: 'HS256',
-        }
+        },
     );
 
     return token;
@@ -30,4 +30,4 @@ const validateToken = (token = null) => {
 module.exports = {
     createToken,
     validateToken,
-}
+};
