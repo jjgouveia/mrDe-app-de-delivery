@@ -8,6 +8,7 @@ import Products from './pages/Products';
 import Orders from './pages/Orders';
 import App from './App';
 import ErrorPage from './pages/ErrorPage';
+import Register from './pages/Register';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
     ],
   },
   { path: '/login', element: <Login /> },
+  { path: '/register', element: <Register /> },
 ]);
 
 function ErrorBoundary() {

@@ -10,7 +10,7 @@ const requestLogin = async (email, password) => {
 
   const encryptedPassword = md5(password);
 
-  if (request.password !== encryptedPassword) throw new HttpException(400, 'Invalid password');
+  if (request.password !== encryptedPassword) throw new HttpException(400, 'User or password invalid');
 
   const { id, name, role } = request;
 

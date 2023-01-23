@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { schemaLogin } from '../validations/schemas';
+import { loginSchema } from '../validations/schemas';
 
 export default function Login() {
   const NOT_FOUND = 404;
@@ -16,7 +16,7 @@ export default function Login() {
   const validateInput = useCallback(
     async () => {
       try {
-        await schemaLogin.validate(loginValues);
+        await loginSchema.validate(loginValues);
         setIsDisabled(false);
       } catch (error) {
         setIsDisabled(true);
@@ -79,7 +79,7 @@ export default function Login() {
   );
 
   return (
-    <div className="login-form-container">
+    <section className="form-container">
       <h1>
         Zé Birita
       </h1>
@@ -132,6 +132,6 @@ export default function Login() {
           Usuário ou senha inválidos
         </h2>
       ) }
-    </div>
+    </section>
   );
 }

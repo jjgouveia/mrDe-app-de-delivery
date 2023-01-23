@@ -1,12 +1,20 @@
 const Yup = require('yup');
 
-const MIN_LENGTH = 6;
+const PASSWORD_MIN_LENGTH = 6;
+const NAME_MIN_LENGTH = 12;
 
-const schemaLogin = Yup.object().shape({
+const loginSchema = Yup.object().shape({
   email: Yup.string().email().required(),
-  password: Yup.string().min(MIN_LENGTH).required(),
-});
+  password: Yup.string().min(PASSWORD_MIN_LENGTH).required(),
+}).required();
+
+const registerSchema = Yup.object().shape({
+  name: Yup.string().min(NAME_MIN_LENGTH).required(),
+  email: Yup.string().email().required(),
+  password: Yup.string().min(PASSWORD_MIN_LENGTH).required(),
+}).required();
 
 module.exports = {
-  schemaLogin,
+  loginSchema,
+  registerSchema,
 };
