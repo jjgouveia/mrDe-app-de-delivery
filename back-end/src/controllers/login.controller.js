@@ -2,8 +2,9 @@ const service = require('../services/login.service');
 const { createToken } = require('../utils/jwtEngine');
 
 const loginRequest = async (req, res) => {
-    const { email, password } = req.body;
-    const request = await service.requestLogin(email, password);
+    const request = await service.requestLogin(req.body);
+
+    if(request.type === 400) return res.status(request.type).json({ message: request.message });
 
     const token = createToken(request);
     

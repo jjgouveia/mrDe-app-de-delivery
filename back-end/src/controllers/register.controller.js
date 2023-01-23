@@ -3,17 +3,17 @@ const { createToken } = require('../utils/jwtEngine');
 
 
 const registerUser = async (req, res) => {
-    const { name, email, password } = req.body;
+    const request = await service.registerUser(req.body);
 
-    const newUser = await service.registerUser(name, email, password);
+    if(request.type === 400) return res.status(request.type).json({ message: request.message });
 
-    const token = createToken(newUser);
+    const token = createToken(request);
 
     return res.status(201).json({
-        id: newUser.id,
-        name: newUser.name,
-        email: newUser.email,
-        role: newUser.role,
+        id: request.id,
+        name: request.name,
+        email: request.email,
+        role: request.role,
         token,
     });
 }
