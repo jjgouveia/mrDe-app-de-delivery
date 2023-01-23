@@ -1,7 +1,6 @@
 const md5 = require('md5');
 const { user } = require('../database/models');
 const HttpException = require('../utils/http.exception');
-const { createToken } = require('../utils/jwtEngine');
 
 const requestLogin = async (email, password) => {
   const request = await user.findOne({ where: { email } });
@@ -12,17 +11,7 @@ const requestLogin = async (email, password) => {
 
   if (request.password !== encryptedPassword) throw new HttpException(400, 'User or password invalid');
 
-  const { id, name, role } = request;
-
-  const token = createToken({
-    id,
-    name,
-    email,
-    password: encryptedPassword,
-    role,
-  });
-
-  return { id, name, email, role, token };
+  return request;
 };
 
 module.exports = {
