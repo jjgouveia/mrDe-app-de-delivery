@@ -6,7 +6,7 @@ require('dotenv/config');
 const createToken = (data) => {
     const token = sign(
         { data },
-        process.env.JWT_SECRET,
+        process.env.JWT_SECRET || 'secret_key',
         {
             expiresIn: '1d',
             algorithm: 'HS256',
@@ -20,7 +20,7 @@ const validateToken = (token = null) => {
     if (!token) throw new Error('Token not found');
 
     try {
-        const { data } = verify(token, process.env.JWT_SECRET);
+        const { data } = verify(token, process.env.JWT_SECRET || 'secret_key');
         return data;
     } catch (error) {
         throw new HttpException(401, 'Expired or Invalid Token');
