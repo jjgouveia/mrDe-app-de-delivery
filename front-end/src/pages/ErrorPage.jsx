@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // eslint-disable-next-line react/prop-types
 export default function ErrorPage({ e }) {
@@ -9,3 +10,7 @@ export default function ErrorPage({ e }) {
     <div>Teste</div>
   );
 }
+
+ErrorPage.propTypes = {
+  e: PropTypes.shape({}),
+}.isRequired;
