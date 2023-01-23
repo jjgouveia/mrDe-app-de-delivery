@@ -18,8 +18,8 @@ const registerUser = async (register) => {
     const newUser = await user.create({ name, email, password: encryptPassword, role: 'customer' });
 
     return newUser;
-}
+};
 
 module.exports = {
-    registerUser
-}
+    registerUser,
+};

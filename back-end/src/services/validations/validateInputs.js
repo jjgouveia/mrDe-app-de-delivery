@@ -1,4 +1,4 @@
-const { loginSchema, newUserSchema } = require("./schemas");
+const { loginSchema, newUserSchema } = require('./schemas');
 
 const validateLogin = (login) => {
     const { error } = loginSchema.validate(login);
@@ -17,4 +17,4 @@ const validateRegister = (register) => {
 module.exports = {
     validateLogin,
     validateRegister,
-}
+};
