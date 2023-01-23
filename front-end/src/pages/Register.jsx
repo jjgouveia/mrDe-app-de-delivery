@@ -1,7 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { registerSchema } from '../validations/schemas';
 
 export default function Register() {
+  const USER_CONFLICT = 409;
+  const navigate = useNavigate();
   const [registerValues, setRegisterValues] = useState({
     name: '',
     email: '',
@@ -27,6 +30,41 @@ export default function Register() {
     [registerValues],
   );
 
+  const redirect = (role) => {
+    if (role === 'seller') {
+      navigate('/seller/orders');
+    }
+    navigate('/customer/products');
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch('http://localhost:3001/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(registerValues),
+    }).then((response) => {
+      if (response.status === USER_CONFLICT) {
+        return response.status;
+      }
+      return response.json();
+    })
+      .then((data) => {
+        if (data === USER_CONFLICT) {
+          setLoginErrorMessage(true);
+        } else {
+          redirect(data.role);
+          localStorage.setItem('user', JSON.stringify({
+            name: data.name,
+            email: data.email,
+            role: data.role,
+            token: data.token }));
+        }
+      });
+  };
+
   useEffect(
     () => {
       validateInput();
@@ -39,7 +77,7 @@ export default function Register() {
       <h1>
         Cadastre-se
       </h1>
-      <form action="" method="post">
+      <form method="post" onSubmit={ (e) => handleSubmit(e) }>
         <div className="form-group">
           <label htmlFor="name">
             <span>Nome:</span>
@@ -87,7 +125,7 @@ export default function Register() {
         </div>
       </form>
       { loginErrorMessage && (
-        <h2 data-testid="common_login__element-invalid-email">
+        <h2 data-testid="common_register__element-invalid_register">
           Email já utilizado. Deseja
           {' '}
           <a href="/recover">recuperar a senha</a>
