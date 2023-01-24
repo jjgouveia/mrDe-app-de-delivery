@@ -15,7 +15,7 @@ export default function CardProducts(props) {
       </h3>
 
       <img
-        id="product-img"
+        className="product-img"
         data-testid={ `customer_products__img-card-bg-image-${product.id}` }
         src={ product.url_image }
         alt="imagem do produto"
