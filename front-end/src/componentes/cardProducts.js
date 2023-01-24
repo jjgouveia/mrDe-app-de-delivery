@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './cardProducts.css';
 
 export default function CardProducts(props) {
   const { product } = props;
@@ -12,17 +13,19 @@ export default function CardProducts(props) {
       >
         { product.name }
       </h3>
+
+      <img
+        id="product-img"
+        data-testid={ `customer_products__img-card-bg-image-${product.id}` }
+        src={ product.url_image }
+        alt="imagem do produto"
+      />
+
       <p
         data-testid={ `customer_products__element-card-price-${product.id}` }
       >
         { product.price }
       </p>
-
-      <img
-        data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-        src={ product.url_image }
-        alt="imagem do produto"
-      />
 
       <button
         type="button"
