@@ -1,17 +1,42 @@
 /* eslint-disable import/no-import-module-exports */
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import './navbar.css';
 
+// const { verify } = require('jsonwebtoken');
+
 function NavBar() {
-  const dataUser = JSON.parse(localStorage.getItem('user')) || {
+  // const { data } = verify(token, process.env.JWT_SECRET || 'secret_key');
+  // console.log(data);
+  const [dataUser, setDataUser] = useState({
     name: 'Débora',
     email: 'email@dominio.com',
     role: 'customer',
-    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
-  };
+    // token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+    token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC
+    J9.eyJkYXRhIjp7ImlkIjoxMiwibmFtZSI6IkJCQkJCQkJCQkJ
+    CQkJCQkJCQiIsImVtYWlsIjoidGVzdGUyQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiZmJlODJi
+    OTNjMDcxYmVkZGEzMWFmZGVkNDAwY2NhNTIiLCJyb2xlIjoiY3VzdG9tZXIifSwiaWF0IjoxNj
+    c0NTk1OTQ0LCJleHAiOjE2NzQ2ODIzNDR9.UHdCBYoL-_KT0AUthFX5k3SMhlKpIWRBNDcxivCTL_o`,
+  });
+  // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxMiwibmFtZSI6IkJCQkJCQkJCQkJCQkJCQkJCQiIsImVtYWlsIjoidGVzdGUyQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiZmJlODJiOTNjMDcxYmVkZGEzMWFmZGVkNDAwY2NhNTIiLCJyb2xlIjoiY3VzdG9tZXIifSwiaWF0IjoxNjc0NTk1OTQ0LCJleHAiOjE2NzQ2ODIzNDR9.UHdCBYoL-_KT0AUthFX5k3SMhlKpIWRBNDcxivCTL_o"
 
-  return (
+  const [redirect, setRedirect] = useState(true);
+
+  useEffect(() => {
+    setDataUser(JSON.parse(localStorage.getItem('user')));
+  }, []);
+
+  // const dataUser = JSON.parse(localStorage.getItem('user')) || {
+  //   name: 'Débora',
+  //   email: 'email@dominio.com',
+  //   role: 'customer',
+  //   token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+  // };
+
+  // console.log(JSON.parse(localStorage.getItem('user')));
+
+  const content = redirect ? (
     <nav>
       <Link
         to="/customer/products"
@@ -31,13 +56,17 @@ function NavBar() {
       </span>
 
       <button
-        onClick={ () => { localStorage.removeItem('user'); } }
+        onClick={ () => {
+          localStorage.removeItem('user');
+          setRedirect(false);
+        } }
         type="button"
         data-testid="customer_products__element-navbar-link-logout"
       >
         Logout
       </button>
     </nav>
-  );
+  ) : (<Navigate to="/login" />);
+  return content;
 }
 export default NavBar;
