@@ -24,6 +24,8 @@ export default function CardProducts(props) {
       <p
         data-testid={ `customer_products__element-card-price-${product.id}` }
       >
+        R$
+        { ' ' }
         { product.price }
       </p>
 
