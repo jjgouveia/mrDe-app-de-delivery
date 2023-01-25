@@ -3,39 +3,23 @@ import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import './navbar.css';
 
-// const { verify } = require('jsonwebtoken');
-
 function NavBar() {
-  // const { data } = verify(token, process.env.JWT_SECRET || 'secret_key');
-  // console.log(data);
   const [dataUser, setDataUser] = useState({
     name: 'Débora',
     email: 'email@dominio.com',
     role: 'customer',
-    // token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
     token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC
     J9.eyJkYXRhIjp7ImlkIjoxMiwibmFtZSI6IkJCQkJCQkJCQkJ
     CQkJCQkJCQiIsImVtYWlsIjoidGVzdGUyQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiZmJlODJi
     OTNjMDcxYmVkZGEzMWFmZGVkNDAwY2NhNTIiLCJyb2xlIjoiY3VzdG9tZXIifSwiaWF0IjoxNj
     c0NTk1OTQ0LCJleHAiOjE2NzQ2ODIzNDR9.UHdCBYoL-_KT0AUthFX5k3SMhlKpIWRBNDcxivCTL_o`,
   });
-  // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxMiwibmFtZSI6IkJCQkJCQkJCQkJCQkJCQkJCQiIsImVtYWlsIjoidGVzdGUyQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiZmJlODJiOTNjMDcxYmVkZGEzMWFmZGVkNDAwY2NhNTIiLCJyb2xlIjoiY3VzdG9tZXIifSwiaWF0IjoxNjc0NTk1OTQ0LCJleHAiOjE2NzQ2ODIzNDR9.UHdCBYoL-_KT0AUthFX5k3SMhlKpIWRBNDcxivCTL_o"
 
   const [redirect, setRedirect] = useState(true);
 
   useEffect(() => {
-    console.log('TOOKEEEN', JSON.parse(localStorage.getItem('user')));
     setDataUser(JSON.parse(localStorage.getItem('user')));
   }, []);
-
-  // const dataUser = JSON.parse(localStorage.getItem('user')) || {
-  //   name: 'Débora',
-  //   email: 'email@dominio.com',
-  //   role: 'customer',
-  //   token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
-  // };
-
-  // console.log(JSON.parse(localStorage.getItem('user')));
 
   const content = redirect ? (
     <nav>

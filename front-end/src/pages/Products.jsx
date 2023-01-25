@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from '../componentes/navbar';
 import CardProducts from '../componentes/cardProducts';
-import dataProducts from '../Data _test/dataProducts';
+import { getProducts } from '../api/getters';
 
 export default function Products() {
+  const [allProducts, setAllProducts] = useState([]);
+
+  useEffect(() => {
+    getProducts().then((response) => {
+      setAllProducts(response);
+    });
+  }, []);
+
+  console.log(allProducts);
+
   return (
     <>
       <NavBar />
       <h1>Produtos</h1>
       <div>
         {
-          dataProducts.map((product) => (<CardProducts
+          allProducts.map((product) => (<CardProducts
             product={ product }
             key={ product.id }
           />))
