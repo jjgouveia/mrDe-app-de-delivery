@@ -8,5 +8,6 @@ const routes = express.Router();
 routes.use('/login', login);
 routes.use('/register', register);
 routes.use('/products', products);
+/* routes.use('/checkout', checkout); */
 
 module.exports = routes;

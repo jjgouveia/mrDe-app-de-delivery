@@ -9,6 +9,7 @@ import Orders from './pages/Orders';
 import App from './App';
 import ErrorPage from './pages/ErrorPage';
 import Register from './pages/Register';
+import Checkout from './pages/Checkout';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
       { path: '/', element: <Login /> },
       { path: '/customer/products', element: <Products /> },
       { path: '/seller/orders', element: <Orders /> },
+      { path: '/customer/checkout', element: <Checkout /> },
     ],
   },
   { path: '/login', element: <Login /> },
