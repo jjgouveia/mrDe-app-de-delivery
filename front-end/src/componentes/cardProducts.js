@@ -22,7 +22,7 @@ export default function CardProducts(props) {
   useEffect(() => {
     addLocalStorage(product, value);
     updateTotal();
-  }, [value]);
+  }, [addLocalStorage, product, updateTotal, value]);
 
   return (
     <div>

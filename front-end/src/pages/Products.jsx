@@ -34,16 +34,17 @@ function aux(cart, product, productCart) {
   }
 }
 
-function addProductCartLocalStorage(product) {
+function addProductCartLocalStorage(product, quant) {
   const num = -1;
-  if (product.quant > num) {
+  if (quant > num) {
     const productCart = {
       productId: product.id,
       name: product.name,
-      quantity: product.quant,
+      quantity: quant,
       unitPrice: product.price,
-      subTotal: product.quant * product.price,
+      subTotal: quant * product.price,
     };
+
     const cart = JSON.parse(localStorage.getItem('carrinho'));
     aux(cart, product, productCart);
   } else {
