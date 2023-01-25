@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import './cardProducts.css';
 import { getImage } from '../api/getters';
 
+// const negativo = -1;
+// const positivo = 1;
+
 export default function CardProducts(props) {
   const [image, setImage] = useState('');
 
-  const { product } = props;
+  const { product, addLocalStorage, updateTotal } = props;
 
   const [value, setValue] = useState(0);
 
@@ -15,6 +18,11 @@ export default function CardProducts(props) {
       setImage(response);
     });
   }, [product.url_image]);
+
+  useEffect(() => {
+    addLocalStorage(product, value);
+    updateTotal();
+  }, [value]);
 
   return (
     <div>
@@ -42,6 +50,9 @@ export default function CardProducts(props) {
       </div>
 
       <button
+        onClick={ () => {
+          setValue(Number(value) + 1);
+        } }
         type="button"
         data-testid={ `customer_products__button-card-add-item-${product.id}` }
       >
@@ -49,6 +60,9 @@ export default function CardProducts(props) {
       </button>
 
       <button
+        onClick={ () => {
+          if (value > 0) setValue(Number(value) - 1);
+        } }
         type="button"
         data-testid={ `customer_products__button-card-rm-item-${product.id}` }
       >
@@ -59,7 +73,15 @@ export default function CardProducts(props) {
         type="number"
         data-testid={ `customer_products__input-card-quantity-${product.id}` }
         value={ value }
-        onChange={ (e) => setValue(e.target.value) }
+        onChange={ (e) => {
+          // const num = Number(e.target.value) > value ? positivo : negativo;
+          console.log(typeof e.target.value);
+
+          const num2 = e.target.value === ''
+            || Number(e.target.value) < 0 ? 0 : e.target.value;
+
+          setValue(Number(num2));
+        } }
       />
     </div>
   );
@@ -67,4 +89,6 @@ export default function CardProducts(props) {
 
 CardProducts.propTypes = {
   product: PropTypes.objectOf(Object).isRequired,
+  addLocalStorage: PropTypes.func.isRequired,
+  updateTotal: PropTypes.func.isRequired,
 };
