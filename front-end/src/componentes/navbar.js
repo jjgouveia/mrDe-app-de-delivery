@@ -24,6 +24,7 @@ function NavBar() {
   const [redirect, setRedirect] = useState(true);
 
   useEffect(() => {
+    console.log('TOOKEEEN', JSON.parse(localStorage.getItem('user')));
     setDataUser(JSON.parse(localStorage.getItem('user')));
   }, []);
 
