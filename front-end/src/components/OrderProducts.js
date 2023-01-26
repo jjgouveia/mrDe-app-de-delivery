@@ -40,7 +40,7 @@ function OrderProducts(props) {
             `customer_checkout__element-order-table-unit-price-${id}`
           }
         >
-          {unitPrice}
+          {unitPrice.toString().replace(/\./, ',')}
 
         </p>
       </div>
@@ -52,7 +52,7 @@ function OrderProducts(props) {
             `customer_checkout__element-order-table-sub-total-${id}`
           }
         >
-          {subTotal}
+          {subTotal.toString().replace(/\./, ',')}
 
         </p>
       </div>
