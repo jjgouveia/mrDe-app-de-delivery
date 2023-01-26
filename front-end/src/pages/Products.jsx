@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-/* import { Navigate, useNavigate } from 'react-router-dom'; */
+import { Navigate, useNavigate } from 'react-router-dom';
 import NavBar from '../componentes/navbar';
 import CardProducts from '../componentes/cardProducts';
 import { getProducts } from '../api/getters';
@@ -58,15 +58,15 @@ function addProductCartLocalStorage(product, quant) {
     }
   }
 
-  /* function redirect() {
+  function redirect() {
     navigate('/customer/checkout');
-  } */
+  }
 }
 
 export default function Products() {
   const [allProducts, setAllProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  /* const navigate = useNavigate(); */
+  const navigate = useNavigate();
 
   // const [carrinho, setCarrinho] = useState([]);
 
@@ -90,7 +90,7 @@ export default function Products() {
 
       <span>Carrinho: </span>
       <button
-        /* onClick={ redirect } */
+        onClick={ redirect }
         data-testid="customer_products__button-cart"
         type="button"
       >
