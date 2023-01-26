@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+/* import { Navigate, useNavigate } from 'react-router-dom'; */
 import NavBar from '../componentes/navbar';
 import CardProducts from '../componentes/cardProducts';
 import { getProducts } from '../api/getters';
@@ -56,11 +57,16 @@ function addProductCartLocalStorage(product, quant) {
       localStorage.setItem('carrinho', JSON.stringify(newCart));
     }
   }
+
+  /* function redirect() {
+    navigate('/customer/checkout');
+  } */
 }
 
 export default function Products() {
   const [allProducts, setAllProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  /* const navigate = useNavigate(); */
 
   // const [carrinho, setCarrinho] = useState([]);
 
@@ -83,8 +89,13 @@ export default function Products() {
       </spam>
 
       <span>Carrinho: </span>
-      <button data-testid="customer_products__button-cart" type="button">
+      <button
+        /* onClick={ redirect } */
+        data-testid="customer_products__button-cart"
+        type="button"
+      >
         { String(totalPrice.toFixed(2)).replace('.', ',') }
+
       </button>
       <div>
         {
