@@ -9,6 +9,7 @@ import Orders from './pages/Orders';
 import App from './App';
 import ErrorPage from './pages/ErrorPage';
 import Register from './pages/Register';
+import AppProvider from './context/app.provider';
 import Checkout from './pages/Checkout';
 
 const router = createBrowserRouter([
@@ -35,7 +36,9 @@ function ErrorBoundary() {
 
 ReactDOM.render(
   <React.StrictMode>
-    <RouterProvider router={ router } />
+    <AppProvider>
+      <RouterProvider router={ router } />
+    </AppProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

@@ -1,6 +1,6 @@
 import React from 'react';
-import NavBar from '../componentes/navbar';
-import OrderProducts from '../componentes/OrderProducts';
+import NavBar from '../components/navbar';
+import OrderProducts from '../components/OrderProducts';
 
 const names = ['Isabelly', 'Jadson', 'Japhé'];
 
