@@ -4,27 +4,64 @@ import OrderProducts from '../componentes/OrderProducts';
 
 const names = ['Isabelly', 'Jadson', 'Japhé'];
 
-const array = [{
-  name: 'primeiro item',
-  productId: 0,
-  quantity: 5,
-  subTotal: 10,
-  unitPrice: '2',
-},
-{
-  name: 'segundo item',
-  productId: 1,
-  quantity: 2,
-  subTotal: 6,
-  unitPrice: '3',
-},
-{
-  name: 'terceiro item',
-  productId: 2,
-  quantity: 8,
-  subTotal: 32,
-  unitPrice: '4',
-}];
+const array = [
+  {
+    id: 0,
+    name: 'primeiro item',
+    productId: 1,
+    quantity: 5,
+    subTotal: 10,
+    unitPrice: '2',
+  },
+  {
+    id: 1,
+    name: 'segundo item',
+    productId: 2,
+    quantity: 2,
+    subTotal: 6,
+    unitPrice: '3',
+  },
+  {
+    id: 2,
+    name: 'terceiro item',
+    productId: 3,
+    quantity: 8,
+    subTotal: 32,
+    unitPrice: '4',
+  },
+  {
+    id: 3,
+    name: 'quarto item',
+    productId: 4,
+    quantity: 8,
+    subTotal: 40,
+    unitPrice: '5',
+  },
+  {
+    id: 4,
+    name: 'quinto item',
+    productId: 5,
+    quantity: 8,
+    subTotal: 40,
+    unitPrice: '5',
+  },
+  {
+    id: 5,
+    name: 'sexto item',
+    productId: 6,
+    quantity: 2,
+    subTotal: 8,
+    unitPrice: '4',
+  },
+  {
+    id: 6,
+    name: 'sétimo item',
+    productId: 7,
+    quantity: 3,
+    subTotal: 15,
+    unitPrice: '5',
+  },
+];
 
 function Checkout() {
   return (
@@ -34,8 +71,7 @@ function Checkout() {
         Finalizar pedido
       </h1>
       <div>
-        { array.map((order, index) => (<OrderProducts
-          index={ index }
+        { array.map((order) => (<OrderProducts
           product={ order }
           key={ order.productId }
         />))}
