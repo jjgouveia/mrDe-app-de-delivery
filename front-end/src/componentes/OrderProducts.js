@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function OrderProducts(props) {
-  const { product } = props;
+  const { product, index } = props;
   const { name, productId, quantity, subTotal, unitPrice } = product;
+  const dataTeste = 'customer_checkout__element-order-table-item-number-';
   return (
     <div>
       <div>
         Item
         { ' ' }
         <p
-          data-testid={ `customer_checkout__element-order-table-item-number-
-          ${productId}` }
+          data-testid={ `${dataTeste}${index}` }
         >
           {productId}
 
@@ -20,7 +20,7 @@ function OrderProducts(props) {
       <div>
         Descrição
         { ' ' }
-        <p data-testid={ `customer_checkout__element-order-table-name-${productId}` }>
+        <p data-testid={ `customer_checkout__element-order-table-name-${index}` }>
           {name}
 
         </p>
@@ -28,7 +28,7 @@ function OrderProducts(props) {
       <div>
         Quantidade
         { ' ' }
-        <p data-testid={ `customer_checkout__element-order-table-quantity-${productId}` }>
+        <p data-testid={ `customer_checkout__element-order-table-quantity-${index}` }>
           {quantity}
 
         </p>
@@ -37,8 +37,9 @@ function OrderProducts(props) {
         Valor Unitário
         { ' ' }
         <p
-          data-testid={ `customer_checkout__element-order-table-unit-price-
-        ${productId}` }
+          data-testid={
+            `customer_checkout__element-order-table-unit-price-${index}`
+          }
         >
           {unitPrice}
 
@@ -48,8 +49,9 @@ function OrderProducts(props) {
         Sub-total
         { ' ' }
         <p
-          data-testid={ `customer_checkout__element-order-table-sub-total-
-        ${productId}` }
+          data-testid={
+            `customer_checkout__element-order-table-sub-total-${index}`
+          }
         >
           {subTotal}
 
@@ -58,7 +60,7 @@ function OrderProducts(props) {
       Remover item
       { ' ' }
       <button
-        data-testid={ `customer_checkout__element-order-table-remove-${productId}` }
+        data-testid={ `customer_checkout__element-order-table-remove-${index}` }
         type="submit"
       >
         Remover
@@ -69,5 +71,6 @@ function OrderProducts(props) {
 OrderProducts.propTypes = {
   product: PropTypes
     .objectOf(Object).isRequired,
+  index: PropTypes.string.isRequired,
 };
 export default OrderProducts;

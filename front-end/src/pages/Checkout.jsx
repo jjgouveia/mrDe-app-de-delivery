@@ -6,21 +6,21 @@ const names = ['Isabelly', 'Jadson', 'Japhé'];
 
 const array = [{
   name: 'primeiro item',
-  productId: 8,
+  productId: 0,
   quantity: 5,
   subTotal: 10,
   unitPrice: '2',
 },
 {
   name: 'segundo item',
-  productId: 4,
+  productId: 1,
   quantity: 2,
   subTotal: 6,
   unitPrice: '3',
 },
 {
   name: 'terceiro item',
-  productId: 3,
+  productId: 2,
   quantity: 8,
   subTotal: 32,
   unitPrice: '4',
@@ -34,7 +34,8 @@ function Checkout() {
         Finalizar pedido
       </h1>
       <div>
-        { array.map((order) => (<OrderProducts
+        { array.map((order, index) => (<OrderProducts
+          index={ index }
           product={ order }
           key={ order.productId }
         />))}

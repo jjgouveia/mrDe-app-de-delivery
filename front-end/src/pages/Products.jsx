@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../componentes/navbar';
 import CardProducts from '../componentes/cardProducts';
 import { getProducts } from '../api/getters';
@@ -57,10 +57,6 @@ function addProductCartLocalStorage(product, quant) {
       localStorage.setItem('carrinho', JSON.stringify(newCart));
     }
   }
-
-  function redirect() {
-    navigate('/customer/checkout');
-  }
 }
 
 export default function Products() {
@@ -70,6 +66,9 @@ export default function Products() {
 
   // const [carrinho, setCarrinho] = useState([]);
 
+  function redirect() {
+    navigate('/customer/checkout');
+  }
   useEffect(() => {
     getProducts().then((response) => {
       setAllProducts(response);
