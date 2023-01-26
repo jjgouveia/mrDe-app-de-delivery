@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import NavBar from '../componentes/navbar';
-import CardProducts from '../componentes/cardProducts';
-import { getProducts } from '../api/getters';
+import React, { useContext, useState } from 'react';
+import NavBar from '../components/navbar';
+import CardProducts from '../components/cardProducts';
+import AppContext from '../context/app.context';
+import TotalAmount from '../components/totalAmount';
 
 function updateTotal(setTotalPrice) {
   if (localStorage.getItem('carrinho')) {
@@ -14,7 +15,6 @@ function updateTotal(setTotalPrice) {
 function aux(cart, product, productCart) {
   if (!cart) {
     localStorage.setItem('carrinho', JSON.stringify([productCart]));
-    console.log(JSON.parse(localStorage.getItem('carrinho')));
   } else {
     let newCart = null;
     const validate = cart && cart.some((produ) => produ.productId === product.id);
@@ -30,6 +30,7 @@ function aux(cart, product, productCart) {
     } else {
       newCart = [...cart, productCart];
     }
+
     localStorage.setItem('carrinho', JSON.stringify(newCart));
   }
 }
@@ -59,43 +60,31 @@ function addProductCartLocalStorage(product, quant) {
 }
 
 export default function Products() {
-  const [allProducts, setAllProducts] = useState([]);
+  const { products } = useContext(AppContext);
   const [totalPrice, setTotalPrice] = useState(0);
-
-  // const [carrinho, setCarrinho] = useState([]);
-
-  useEffect(() => {
-    getProducts().then((response) => {
-      setAllProducts(response);
-    });
-  }, []);
 
   return (
     <>
       <NavBar />
       <h1>Produtos</h1>
-
+      <TotalAmount />
+      <div>
+        {
+          products && products.map((product) => (
+            <CardProducts
+              addLocalStorage={ addProductCartLocalStorage }
+              updateTotal={ () => updateTotal(setTotalPrice) }
+              product={ product }
+              key={ product.id }
+            />))
+        }
+      </div>
       <span>Total: R$ </span>
-      <spam
+      <span
         data-testid="customer_products__checkout-bottom-value"
       >
         { String(totalPrice.toFixed(2)).replace('.', ',') }
-      </spam>
-
-      <span>Carrinho: </span>
-      <button data-testid="customer_products__button-cart" type="button">
-        { String(totalPrice.toFixed(2)).replace('.', ',') }
-      </button>
-      <div>
-        {
-          allProducts.map((product) => (<CardProducts
-            addLocalStorage={ addProductCartLocalStorage }
-            updateTotal={ () => updateTotal(setTotalPrice) }
-            product={ product }
-            key={ product.id }
-          />))
-        }
-      </div>
+      </span>
     </>
   );
 }
