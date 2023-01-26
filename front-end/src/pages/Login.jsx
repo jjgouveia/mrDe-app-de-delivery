@@ -28,7 +28,7 @@ export default function Login() {
 
   const redirect = (role) => {
     if (role === 'seller') {
-      navigate('/seller/orders');
+      navigate('/customer/products');
     }
     navigate('/customer/products');
   };

@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/navbar';
 import CardProducts from '../components/cardProducts';
 import AppContext from '../context/app.context';
@@ -62,6 +63,13 @@ function addProductCartLocalStorage(product, quant) {
 export default function Products() {
   const { products } = useContext(AppContext);
   const [totalPrice, setTotalPrice] = useState(0);
+  const navigate = useNavigate();
+
+  // const [carrinho, setCarrinho] = useState([]);
+
+  function redirect() {
+    navigate('/customer/checkout');
+  }
 
   return (
     <>
@@ -85,6 +93,16 @@ export default function Products() {
       >
         { String(totalPrice.toFixed(2)).replace('.', ',') }
       </span>
+
+      <span>Carrinho: </span>
+      <button
+        onClick={ redirect }
+        data-testid="customer_products__button-cart"
+        type="button"
+      >
+        { String(totalPrice.toFixed(2)).replace('.', ',') }
+
+      </button>
     </>
   );
 }
