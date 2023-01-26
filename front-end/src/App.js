@@ -1,11 +1,14 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import './App.css';
+import AppProvider from './context/app.provider';
 // import Routes from './routes/routes';
 
 function App() {
   return (
-    <Outlet />
+    <AppProvider>
+      <Outlet />
+    </AppProvider>
   );
 }
 
