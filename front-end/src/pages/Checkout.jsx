@@ -1,14 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/navbar';
 import OrderProducts from '../components/OrderProducts';
+import postOrder from '../api/posters';
 
 const names = ['Isabelly', 'Jadson', 'Japhé'];
 
+const mockOrder = {
+  userId: 1,
+  sellerId: 1,
+  totalPrice: 2.0,
+  deliveryAddress: 'Rua 2',
+  deliveryNumber: '05/05/2005',
+  saleDate: '2005-05-05',
+  status: 'Pendente',
+};
+
 function Checkout() {
+  const [order, setOrder] = useState({});
+
+  useEffect(() => {
+    postOrder(mockOrder)
+      .then((data) => setOrder(data));
+  }, []);
+
+  const navigate = useNavigate();
+  function redirectToOrderDetails() {
+    console.log(order);
+    navigate(`/customer/orders/${order.id}`);
+    // navigate('/customer/orders/1');
+  }
+
   const carProducts = JSON
     .parse(localStorage.getItem('carrinho')).filter((e) => e.quantity > 0);
   const carProductsWithId = carProducts.map((cp, i) => ({ id: i, ...cp }));
-  console.log(carProductsWithId);
   return (
     <div>
       <NavBar />
@@ -16,9 +41,9 @@ function Checkout() {
         Finalizar pedido
       </h1>
       <div>
-        { carProductsWithId.map((order) => (<OrderProducts
-          product={ order }
-          key={ order.productId }
+        { carProductsWithId.map((product) => (<OrderProducts
+          product={ product }
+          key={ product.productId }
         />))}
       </div>
       <div>
@@ -65,6 +90,7 @@ function Checkout() {
           <button
             data-testid="customer_checkout__button-submit-order"
             type="submit"
+            onClick={ redirectToOrderDetails }
           >
             FINALIZAR PEDIDO
           </button>
