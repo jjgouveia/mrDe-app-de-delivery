@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBar from '../components/navbar';
 import OrderProducts from '../components/OrderProducts';
 
 const names = ['Isabelly', 'Jadson', 'Japhé'];
 
 function Checkout() {
-  const carProducts = JSON
-    .parse(localStorage.getItem('carrinho')).filter((e) => e.quantity > 0);
-  const carProductsWithId = carProducts.map((cp, i) => ({ id: i, ...cp }));
-  console.log(carProductsWithId);
+  const c1 = JSON.parse(localStorage.getItem('carrinho')).filter((e) => e.quantity > 0);
+  const [cart, setCart] = useState(c1.map((cp, i) => ({ id: i, ...cp })));
+  const [aux, setAux] = useState(true);
+
+  useEffect(() => {
+    const c2 = JSON.parse(localStorage.getItem('carrinho')).filter((e) => e.quantity > 0);
+    setCart(c2.map((cp, i) => ({ id: i, ...cp })));
+  }, [aux]);
+
   return (
     <div>
       <NavBar />
@@ -16,17 +21,19 @@ function Checkout() {
         Finalizar pedido
       </h1>
       <div>
-        { carProductsWithId.map((order) => (<OrderProducts
+        { cart.map((order) => (<OrderProducts
           product={ order }
           key={ order.productId }
+          updateCheckout={ { setAux, aux } }
         />))}
       </div>
       <div>
-        Total
+        <strong>Total: </strong>
+        <span>R$ </span>
         { ' ' }
-        <div data-testid="customer_checkout__element-order-total-price">
-          { carProductsWithId.reduce((acc, curr) => acc + curr.subTotal, 0).toFixed(2).toString().replace(/\./, ',')}
-        </div>
+        <span data-testid="customer_checkout__element-order-total-price">
+          { cart.reduce((acc, curr) => acc + curr.subTotal, 0).toFixed(2).toString().replace(/\./, ',')}
+        </span>
       </div>
       <div>
         <h1>
