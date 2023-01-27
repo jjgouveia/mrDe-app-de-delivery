@@ -2,84 +2,74 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function OrderProducts(props) {
-  const { product, updateCheckout } = props;
-  const { id, name, productId, quantity, subTotal, unitPrice } = product;
+  const borderSolidBlac = '2px solid black';
+  const { product } = props;
+  const { id, name, quantity, subTotal, unitPrice } = product;
   return (
-    <div>
-      <div>
-        <strong>Item: </strong>
+    <div style={ { display: 'flex', padding: '10px', textAlign: 'center' } }>
+      <div style={ { border: borderSolidBlac, padding: '2px' } }>
+        Item
         { ' ' }
-        <span
+        <p
           data-testid={ `customer_checkout__element-order-table-item-number-${id}` }
         >
           {id + 1}
 
-        </span>
+        </p>
       </div>
-      <div>
-        <strong>Descrição: </strong>
-        { ' ' }
-        <span data-testid={ `customer_checkout__element-order-table-name-${id}` }>
+      <div style={ { border: borderSolidBlac, padding: '2px' } }>
+        <div>Descrição</div>
+        <p data-testid={ `customer_checkout__element-order-table-name-${id}` }>
           {name}
-        </span>
+        </p>
       </div>
-      <div>
-        <strong>Quantidade: </strong>
+      <div style={ { border: borderSolidBlac, padding: '2px' } }>
+        Quantidade
         { ' ' }
-        <span data-testid={ `customer_checkout__element-order-table-quantity-${id}` }>
+        <p data-testid={ `customer_checkout__element-order-table-quantity-${id}` }>
           {quantity}
-        </span>
+
+        </p>
       </div>
-      <div>
-        <strong>Valor Unitário: </strong>
+      <div style={ { border: borderSolidBlac, padding: '2px' } }>
+        Valor Unitário
         { ' ' }
-        <span
+        <p
           data-testid={
             `customer_checkout__element-order-table-unit-price-${id}`
           }
         >
           {unitPrice.replace(/\./, ',')}
-        </span>
+
+        </p>
       </div>
-      <div>
-        <strong>Sub-total: </strong>
+      <div style={ { border: borderSolidBlac, padding: '2px' } }>
+        Sub-total
         { ' ' }
-        <span
+        <p
           data-testid={
             `customer_checkout__element-order-table-sub-total-${id}`
           }
         >
           {subTotal.toFixed(2).toString().replace(/\./, ',')}
-        </span>
+
+        </p>
       </div>
-      <strong>Remover item: </strong>
-      { ' ' }
-      <button
-        onClick={ () => {
-          const cart = JSON.parse(localStorage.getItem('carrinho'));
+      <div style={ { border: borderSolidBlac, padding: '2px' } }>
+        Remover item
+        <button
+          data-testid={ `customer_checkout__element-order-table-remove-${id}` }
+          type="submit"
+        >
+          Remover
+        </button>
+      </div>
 
-          cart.forEach((el) => {
-            if (el.productId === productId) {
-              el.quantity = 0;
-            }
-          });
-
-          localStorage.setItem('carrinho', JSON.stringify(cart));
-          const v = updateCheckout.aux;
-          updateCheckout.setAux(!v);
-        } }
-        data-testid={ `customer_checkout__element-order-table-remove-${id}` }
-        type="submit"
-      >
-        Remover
-      </button>
     </div>
   );
 }
 OrderProducts.propTypes = {
   product: PropTypes
-    .objectOf(Object).isRequired,
-  updateCheckout: PropTypes
     .objectOf(Object).isRequired,
 };
 export default OrderProducts;
