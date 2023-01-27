@@ -27,10 +27,16 @@ export default function Login() {
   );
 
   const redirect = (role) => {
+    console.log(role);
     if (role === 'seller') {
       navigate('/customer/products');
     }
-    navigate('/customer/products');
+    if (role === 'customer') {
+      navigate('/customer/products');
+    }
+    if (role === 'administrator') {
+      navigate('/admin/manage');
+    }
   };
 
   const handleSubmit = (e) => {
