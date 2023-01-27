@@ -1,4 +1,4 @@
-const { validateToken } = require("../src/utils/jwtEngine");
+const { validateToken } = require('../src/utils/jwtEngine');
 
 module.exports = (req, res, next) => {
     const { authorization } = req.headers;
