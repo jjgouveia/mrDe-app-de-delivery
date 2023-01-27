@@ -2,63 +2,72 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function OrderProducts(props) {
-  const { product } = props;
-  const { id, name, quantity, subTotal, unitPrice } = product;
+  const { product, updateCheckout } = props;
+  const { id, name, productId, quantity, subTotal, unitPrice } = product;
   return (
     <div>
       <div>
-        Item
+        <strong>Item: </strong>
         { ' ' }
-        <p
+        <span
           data-testid={ `customer_checkout__element-order-table-item-number-${id}` }
         >
           {id + 1}
 
-        </p>
+        </span>
       </div>
       <div>
-        Descrição
+        <strong>Descrição: </strong>
         { ' ' }
-        <p data-testid={ `customer_checkout__element-order-table-name-${id}` }>
+        <span data-testid={ `customer_checkout__element-order-table-name-${id}` }>
           {name}
-
-        </p>
+        </span>
       </div>
       <div>
-        Quantidade
+        <strong>Quantidade: </strong>
         { ' ' }
-        <p data-testid={ `customer_checkout__element-order-table-quantity-${id}` }>
+        <span data-testid={ `customer_checkout__element-order-table-quantity-${id}` }>
           {quantity}
-
-        </p>
+        </span>
       </div>
       <div>
-        Valor Unitário
+        <strong>Valor Unitário: </strong>
         { ' ' }
-        <p
+        <span
           data-testid={
             `customer_checkout__element-order-table-unit-price-${id}`
           }
         >
           {unitPrice.replace(/\./, ',')}
-
-        </p>
+        </span>
       </div>
       <div>
-        Sub-total
+        <strong>Sub-total: </strong>
         { ' ' }
-        <p
+        <span
           data-testid={
             `customer_checkout__element-order-table-sub-total-${id}`
           }
         >
           {subTotal.toFixed(2).toString().replace(/\./, ',')}
-
-        </p>
+        </span>
       </div>
-      Remover item
+      <strong>Remover item: </strong>
       { ' ' }
       <button
+        onClick={ () => {
+          const cart = JSON.parse(localStorage.getItem('carrinho'));
+
+          cart.forEach((el) => {
+            if (el.productId === productId) {
+              el.quantity = 0;
+            }
+          });
+
+          localStorage.setItem('carrinho', JSON.stringify(cart));
+          const v = updateCheckout.aux;
+          updateCheckout.setAux(!v);
+        } }
         data-testid={ `customer_checkout__element-order-table-remove-${id}` }
         type="submit"
       >
@@ -69,6 +78,8 @@ function OrderProducts(props) {
 }
 OrderProducts.propTypes = {
   product: PropTypes
+    .objectOf(Object).isRequired,
+  updateCheckout: PropTypes
     .objectOf(Object).isRequired,
 };
 export default OrderProducts;
