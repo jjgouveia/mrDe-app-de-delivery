@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function OrderProducts(props) {
   const { product } = props;
-  const { id, name, productId, quantity, subTotal, unitPrice } = product;
+  const { id, name, quantity, subTotal, unitPrice } = product;
   return (
     <div>
       <div>
@@ -12,7 +12,7 @@ function OrderProducts(props) {
         <p
           data-testid={ `customer_checkout__element-order-table-item-number-${id}` }
         >
-          {productId}
+          {id + 1}
 
         </p>
       </div>
@@ -40,7 +40,7 @@ function OrderProducts(props) {
             `customer_checkout__element-order-table-unit-price-${id}`
           }
         >
-          {unitPrice.toString().replace(/\./, ',')}
+          {unitPrice.replace(/\./, ',')}
 
         </p>
       </div>
@@ -52,7 +52,7 @@ function OrderProducts(props) {
             `customer_checkout__element-order-table-sub-total-${id}`
           }
         >
-          {subTotal.toString().replace(/\./, ',')}
+          {subTotal.toFixed(2).toString().replace(/\./, ',')}
 
         </p>
       </div>

@@ -1,18 +1,14 @@
-import React/* , { useContext } */ from 'react';
+import React from 'react';
 import NavBar from '../components/navbar';
 import OrderProducts from '../components/OrderProducts';
-/* import AppContext from '../context/app.context'; */
 
 const names = ['Isabelly', 'Jadson', 'Japhé'];
 
-function getCarProducts() {
+function Checkout() {
   const carProducts = JSON
     .parse(localStorage.getItem('carrinho')).filter((e) => e.quantity > 0);
   const carProductsWithId = carProducts.map((cp, i) => ({ id: i, ...cp }));
-  return carProductsWithId;
-}
-
-function Checkout() {
+  console.log(carProductsWithId);
   return (
     <div>
       <NavBar />
@@ -20,7 +16,7 @@ function Checkout() {
         Finalizar pedido
       </h1>
       <div>
-        { getCarProducts().map((order) => (<OrderProducts
+        { carProductsWithId.map((order) => (<OrderProducts
           product={ order }
           key={ order.productId }
         />))}
@@ -29,7 +25,7 @@ function Checkout() {
         Total
         { ' ' }
         <div data-testid="customer_checkout__element-order-total-price">
-          { getCarProducts().reduce((acc, curr) => acc + curr.subTotal, 0).toString().replace(/\./, ',')}
+          { carProductsWithId.reduce((acc, curr) => acc + curr.subTotal, 0).toFixed(2).toString().replace(/\./, ',')}
         </div>
       </div>
       <div>
