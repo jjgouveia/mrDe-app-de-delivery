@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function OrderProducts(props) {
+  const borderSolidBlac = '2px solid black';
   const { product, updateCheckout } = props;
   const { id, name, productId, quantity, subTotal, unitPrice } = product;
   return (
-    <div>
-      <div>
+    <div style={ { display: 'flex', padding: '10px', textAlign: 'center' } }>
+      <div style={ { border: borderSolidBlac, padding: '2px' } }>
         <strong>Item: </strong>
         { ' ' }
         <span
@@ -16,21 +17,21 @@ function OrderProducts(props) {
 
         </span>
       </div>
-      <div>
+      <div style={ { border: borderSolidBlac, padding: '2px' } }>
         <strong>Descrição: </strong>
         { ' ' }
         <span data-testid={ `customer_checkout__element-order-table-name-${id}` }>
           {name}
         </span>
       </div>
-      <div>
+      <div style={ { border: borderSolidBlac, padding: '2px' } }>
         <strong>Quantidade: </strong>
         { ' ' }
         <span data-testid={ `customer_checkout__element-order-table-quantity-${id}` }>
           {quantity}
         </span>
       </div>
-      <div>
+      <div style={ { border: borderSolidBlac, padding: '2px' } }>
         <strong>Valor Unitário: </strong>
         { ' ' }
         <span
@@ -41,7 +42,7 @@ function OrderProducts(props) {
           {unitPrice.replace(/\./, ',')}
         </span>
       </div>
-      <div>
+      <div style={ { border: borderSolidBlac, padding: '2px' } }>
         <strong>Sub-total: </strong>
         { ' ' }
         <span
@@ -52,27 +53,29 @@ function OrderProducts(props) {
           {subTotal.toFixed(2).toString().replace(/\./, ',')}
         </span>
       </div>
-      <strong>Remover item: </strong>
-      { ' ' }
-      <button
-        onClick={ () => {
-          const cart = JSON.parse(localStorage.getItem('carrinho'));
+      <div style={ { border: borderSolidBlac, padding: '2px' } }>
+        <strong>Remover item: </strong>
+        { ' ' }
+        <button
+          onClick={ () => {
+            const cart = JSON.parse(localStorage.getItem('carrinho'));
 
-          cart.forEach((el) => {
-            if (el.productId === productId) {
-              el.quantity = 0;
-            }
-          });
+            cart.forEach((el) => {
+              if (el.productId === productId) {
+                el.quantity = 0;
+              }
+            });
 
-          localStorage.setItem('carrinho', JSON.stringify(cart));
-          const v = updateCheckout.aux;
-          updateCheckout.setAux(!v);
-        } }
-        data-testid={ `customer_checkout__element-order-table-remove-${id}` }
-        type="submit"
-      >
-        Remover
-      </button>
+            localStorage.setItem('carrinho', JSON.stringify(cart));
+            const v = updateCheckout.aux;
+            updateCheckout.setAux(!v);
+          } }
+          data-testid={ `customer_checkout__element-order-table-remove-${id}` }
+          type="submit"
+        >
+          Remover
+        </button>
+      </div>
     </div>
   );
 }
@@ -80,6 +83,11 @@ OrderProducts.propTypes = {
   product: PropTypes
     .objectOf(Object).isRequired,
   updateCheckout: PropTypes
-    .objectOf(Object).isRequired,
+    .objectOf(Object),
 };
+
+OrderProducts.defaultProps = {
+  updateCheckout: 'true',
+};
+
 export default OrderProducts;

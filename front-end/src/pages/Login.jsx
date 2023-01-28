@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { login } from '../routes/auth.routes';
 import { loginSchema } from '../validations/schemas';
 
 export default function Login() {
-  const NOT_FOUND = 404;
+  // const NOT_FOUND = 404;
   const location = useLocation();
   const navigate = useNavigate();
   const [isDisabled, setIsDisabled] = useState(true);
@@ -29,7 +30,7 @@ export default function Login() {
   const redirect = (role) => {
     console.log(role);
     if (role === 'seller') {
-      navigate('/customer/products');
+      navigate('/seller/products');
     }
     if (role === 'customer') {
       navigate('/customer/products');
@@ -39,32 +40,22 @@ export default function Login() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch('http://localhost:3001/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(loginValues),
-    }).then((response) => {
-      if (response.status === NOT_FOUND) {
-        return response.status;
-      }
-      return response.json();
-    })
-      .then((data) => {
-        if (data === NOT_FOUND) {
-          setLoginErrorMessage(true);
-        } else {
-          redirect(data.role);
-          localStorage.setItem('user', JSON.stringify({
-            name: data.name,
-            email: data.email,
-            role: data.role,
-            token: data.token }));
-        }
-      });
+
+    try {
+      const request = await login(loginValues);
+      localStorage.setItem('user', JSON.stringify({
+        name: request.data.name,
+        email: request.data.email,
+        role: request.data.role,
+        token: request.data.token,
+      }));
+      redirect(request.data.role);
+    } catch (error) {
+      console.log(error.response.status);
+      setLoginErrorMessage(true);
+    }
   };
 
   const handleChange = ({ target: { name, value } }) => {
