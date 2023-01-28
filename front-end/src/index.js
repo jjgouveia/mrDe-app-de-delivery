@@ -12,6 +12,7 @@ import Register from './pages/Register';
 import AppProvider from './context/app.provider';
 import Checkout from './pages/Checkout';
 import OrderDetails from './pages/OrderDetails';
+import Manage from './pages/Manage';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { path: '/customer/checkout', element: <Checkout /> },
       { path: '/customer/orders/:id', element: <OrderDetails /> },
       { path: '/seller/orders', element: <Orders /> },
+      { path: '/admin/manage', element: <Manage /> },
     ],
   },
   { path: '/login', element: <Login /> },
