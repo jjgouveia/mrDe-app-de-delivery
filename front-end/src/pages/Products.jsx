@@ -72,10 +72,10 @@ export default function Products() {
   const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    if (!user.token) {
+    if (!user?.token) {
       setAuth(false);
     }
-  }, [user.token]);
+  }, [user?.token]);
 
   return (
     <>
@@ -85,7 +85,7 @@ export default function Products() {
       <TotalAmount />
       <div>
         {
-          products && products.map((product) => (
+          products && products?.map((product) => (
             <CardProducts
               addLocalStorage={ addProductCartLocalStorage }
               updateTotal={ () => updateTotal(setTotalPrice) }
