@@ -21,12 +21,15 @@ function Checkout() {
 
   const user = JSON.parse(localStorage.getItem('user'));
 
+  console.log('USER DO LCOALSTORAGE, ', user);
+
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
 
   const [order, setOrder] = useState({
     products: cart,
     userId: user?.id,
+    // userId: user.id,
     totalPrice,
     saleDate: today.toUTCString(),
     status: 'Pendente',
@@ -34,7 +37,7 @@ function Checkout() {
 
   async function onSubmit(data) {
     const request = await requestOrder({ ...order, ...data }, user?.token);
-    console.log(request.data);
+    console.log('REQUEST DATA CHECKOUT l40', request);
     if (request.status === STATUS_CREATED) {
       setOrder(request.data);
       redirect(`/customer/orders/${request.data.id}`);

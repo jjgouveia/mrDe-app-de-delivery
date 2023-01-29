@@ -1,21 +1,19 @@
-const { sale, sales_products, product } = require('../database/models');
+const { sale, salesProducts, product } = require('../database/models');
 
 const findProduct = async (column, search) => {
     const request = await product.findOne({ where: { [column]: search } });
+    console.log('PRODUTO PROCURADO: ', request);
     return Number(request.dataValues.id);
 };
 
-const SALE = 'sale_id';
-const PRODUCT = 'product_id';
+const SALE_ID = 'sale_id';
+const PRODUCT_ID = 'product_id';
 
 const registerSale = async (newSale) => {
-
     const {
         userId, sellerId,
-        totalPrice,
-        deliveryAddress,
-        deliveryNumber,
-        saleDate,
+        totalPrice, deliveryAddress,
+        deliveryNumber, saleDate,
         status,
     } = newSale;
 
@@ -34,18 +32,22 @@ const registerSale = async (newSale) => {
 
 const createSale = async (body) => {
     try {
-        const sale = await registerSale(body);
-        const relational = body.products.map(async (product) => {
-            const productId = await findProduct('name', product.name);
-            await sales_products
+        const registerResponse = await registerSale(body);
+        console.log('BODY DA CREATESALE: ', registerResponse);
+        const relational = body.products.map(async (bodyProduct) => {
+            const { name, quantity } = bodyProduct;
+            const productId = await findProduct('name', name);
+            await salesProducts
                 .create({
-                    [SALE]: sale.id, [PRODUCT]: productId, quantity: Number(product.quantity)
+                    [SALE_ID]: registerResponse.id,
+                    [PRODUCT_ID]: productId,
+                    quantity: Number(quantity),
                 });
         });
         await Promise.all(relational);
-        return sale;
+        return registerResponse;
     } catch (err) {
-        return { error: err.response }
+        return { error: err };
     }
 };
 

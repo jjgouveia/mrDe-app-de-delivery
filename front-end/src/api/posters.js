@@ -1,5 +1,7 @@
 import axiosInstance from '../routes/axios';
 
+const NOT_FOUND = 404;
+
 const postOrder = (order) => {
   const Order = fetch('http://localhost:3001/sales', {
     method: 'POST',
@@ -33,7 +35,7 @@ const getUserByEmail = (email, token) => {
     },
     body: JSON.parse(email),
   }).then((response) => {
-    if (response.status === 404) {
+    if (response.status === NOT_FOUND) {
       return response.status;
     }
     return response.json();

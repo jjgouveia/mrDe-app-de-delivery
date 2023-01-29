@@ -1,7 +1,7 @@
 const express = require('express');
 const rescue = require('express-rescue');
 const controller = require('../controllers/register.controller');
-const userController = require('../controllers/user.controller');
+// const userController = require('../controllers/user.controller');
 
 const router = express.Router();
 
