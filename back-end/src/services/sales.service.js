@@ -35,14 +35,14 @@ const registerSale = async (newSale) => {
 const createSale = async (body) => {
     try {
         const sale = await registerSale(body);
-        const map = body.products.map(async (product) => {
+        const relational = body.products.map(async (product) => {
             const productId = await findProduct('name', product.name);
             await sales_products
                 .create({
                     [SALE]: sale.id, [PRODUCT]: productId, quantity: Number(product.quantity)
                 });
         });
-        await Promise.all(map);
+        await Promise.all(relational);
         return sale;
     } catch (err) {
         return { error: err.response }
