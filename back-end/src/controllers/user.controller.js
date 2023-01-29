@@ -6,6 +6,12 @@ const service = require('../services/user.service');
     return res.status(200).json(user)
 }
 
+const getAllSellers = async (req, res) => {
+    const sellers = await service.getAllSellers();
+    return res.status(200).json(sellers);
+} 
+
 module.exports = {
-    getUserById
+    getUserById,
+    getAllSellers,
 }
