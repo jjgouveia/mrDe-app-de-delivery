@@ -34,15 +34,12 @@ function Checkout() {
 
   async function onSubmit(data) {
     const request = await requestOrder({ ...order, ...data }, user?.token);
+    console.log(request.data);
     if (request.status === STATUS_CREATED) {
       setOrder(request.data);
       redirect(`/customer/orders/${request.data.id}`);
     }
   }
-
-  // const carProducts = JSON
-  //   .parse(localStorage.getItem('carrinho')).filter((e) => e.quantity > 0);
-  // const carProductsWithId = carProducts.map((cp, i) => ({ id: i, ...cp }));
 
   useEffect(() => {
     const c2 = JSON.parse(localStorage.getItem('carrinho')).filter((e) => e.quantity > 0);

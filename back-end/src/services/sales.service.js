@@ -19,7 +19,7 @@ const registerSale = async (newSale) => {
         status,
     } = newSale;
 
-    const request = await sale.create({
+    const { dataValues } = await sale.create({
         userId,
         sellerId,
         totalPrice,
@@ -29,7 +29,7 @@ const registerSale = async (newSale) => {
         status,
     });
 
-    return request;
+    return dataValues;
 };
 
 const createSale = async (body) => {
@@ -39,7 +39,7 @@ const createSale = async (body) => {
             const productId = await findProduct('name', product.name);
             await sales_products
                 .create({
-                    [SALE]: sale.dataValues.id, [PRODUCT]: productId, quantity: Number(product.quantity)
+                    [SALE]: sale.id, [PRODUCT]: productId, quantity: Number(product.quantity)
                 });
         });
         await Promise.all(map);

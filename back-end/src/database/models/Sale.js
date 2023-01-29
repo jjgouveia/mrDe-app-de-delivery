@@ -24,13 +24,13 @@ module.exports = (sequelize, DataTypes) => {
 
     SaleTable.associate = ({ user }) => {
         SaleTable.belongsTo(user, {
-            as: "costumer",
-            foreignKey: "id",
+            foreignKey: 'user_id',
+            as: 'user',
         });
 
         SaleTable.belongsTo(user, {
-            as: "seller",
-            foreignKey: "id",
+            foreignKey: 'seller_id',
+            as: 'seller',
         });
     };
     
