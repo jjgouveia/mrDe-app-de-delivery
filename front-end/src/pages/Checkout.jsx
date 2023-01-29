@@ -8,8 +8,6 @@ import AppContext from '../context/app.context';
 
 const STATUS_CREATED = 201;
 
-const names = ['Isabelly', 'Jadson', 'Japhé'];
-
 function Checkout() {
   const { sellers } = useContext(AppContext);
   const { register, handleSubmit } = useForm();
@@ -27,6 +25,7 @@ function Checkout() {
   const today = new Date(timeElapsed);
 
   const [order, setOrder] = useState({
+    products: cart,
     userId: user?.id,
     totalPrice,
     saleDate: today.toUTCString(),
@@ -57,11 +56,13 @@ function Checkout() {
         Finalizar pedido
       </h1>
       <div>
-        {cart.map((checkoutOrder) => (<OrderProducts
-          product={ checkoutOrder }
-          key={ checkoutOrder.productId }
-          updateCheckout={ { setAux, aux } }
-        />))}
+        {cart.map((checkoutOrder) => (
+          <OrderProducts
+            product={ checkoutOrder }
+            key={ checkoutOrder.productId }
+            updateCheckout={ { setAux, aux } }
+          />
+        ))}
       </div>
       <div>
         <strong>Total: </strong>

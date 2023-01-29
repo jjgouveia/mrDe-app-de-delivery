@@ -1,7 +1,7 @@
 const service = require('../services/sales.service');
 
 const registerSale = async (req, res) => {
-    const request = await service.registerSale(req.body);
+    const request = await service.createSale(req.body);
 
     console.log(request);
 

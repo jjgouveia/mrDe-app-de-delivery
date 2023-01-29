@@ -1,10 +1,14 @@
-const { sale } = require('../database/models');
-// const HttpException = require('../utils/http.exception');
-// const { validateRegister } = require('./validations/validateInputs');
+const { sale, sales_products, product } = require('../database/models');
+
+const findProduct = async (column, search) => {
+    const request = await product.findOne({ where: { [column]: search } });
+    return Number(request.dataValues.id);
+};
+
+const SALE = 'sale_id';
+const PRODUCT = 'product_id';
 
 const registerSale = async (newSale) => {
-    // const error = validateRegister(register);
-    // if (error) return { type: 400, message: error };
 
     const {
         userId, sellerId,
@@ -14,12 +18,8 @@ const registerSale = async (newSale) => {
         saleDate,
         status,
     } = newSale;
-    
-    // const isAlreadyRegistered = await sale.findOne({ where: { email } });
 
-    // if (isAlreadyRegistered) throw new HttpException(409, 'sale already registered');
-
-    const createdSale = await sale.create({
+    const request = await sale.create({
         userId,
         sellerId,
         totalPrice,
@@ -29,9 +29,26 @@ const registerSale = async (newSale) => {
         status,
     });
 
-    return createdSale;
+    return request;
+};
+
+const createSale = async (body) => {
+    try {
+        const sale = await registerSale(body);
+        const map = body.products.map(async (product) => {
+            const productId = await findProduct('name', product.name);
+            await sales_products
+                .create({
+                    [SALE]: sale.dataValues.id, [PRODUCT]: productId, quantity: Number(product.quantity)
+                });
+        });
+        await Promise.all(map);
+        return sale;
+    } catch (err) {
+        return { error: err.response }
+    }
 };
 
 module.exports = {
-    registerSale,
+    createSale,
 };
