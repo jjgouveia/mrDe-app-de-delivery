@@ -1,15 +1,17 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import NavBar from '../components/navbar';
 import OrderProducts from '../components/OrderProducts';
 import { requestOrder } from '../routes/order.routes';
+import AppContext from '../context/app.context';
 
 const STATUS_CREATED = 201;
 
 const names = ['Isabelly', 'Jadson', 'Japhé'];
 
 function Checkout() {
+  const { sellers } = useContext(AppContext);
   const { register, handleSubmit } = useForm();
   const redirect = useNavigate();
 
@@ -26,7 +28,6 @@ function Checkout() {
 
   const [order, setOrder] = useState({
     userId: user?.id,
-    sellerId: 1,
     totalPrice,
     saleDate: today.toUTCString(),
     status: 'Pendente',
@@ -81,9 +82,10 @@ function Checkout() {
           <select
             data-testid="customer_checkout__select-seller"
             name="select"
-            // { ...register('sellerId') }
+            { ...register('sellerId') }
           >
-            {names.map((name, index) => (<option key={ index }>{name}</option>))}
+            { sellers?.map(({ name, id }) => (
+              <option key={ id } value={ id }>{name}</option>))}
           </select>
         </div>
         <div>
