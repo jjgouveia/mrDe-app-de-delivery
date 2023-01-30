@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerSchema } from '../validations/schemas';
-import { postRegister } from '../routes/register.routes';
+// import { postRegister } from '../routes/register.routes';
 
 export default function Register() {
   const USER_CONFLICT = 409;
@@ -38,19 +38,32 @@ export default function Register() {
     navigate('/customer/products');
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const request = await postRegister(registerValues);
-    if (request === USER_CONFLICT) {
-      setLoginErrorMessage(true);
-    } else {
-      redirect(request.role);
-      localStorage.setItem('user', JSON.stringify({
-        name: request.name,
-        email: request.email,
-        role: request.role,
-        token: request.token }));
-    }
+    fetch('http://localhost:3001/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(registerValues),
+    }).then((response) => {
+      if (response.status === USER_CONFLICT) {
+        return response.status;
+      }
+      return response.json();
+    })
+      .then((data) => {
+        if (data === USER_CONFLICT) {
+          setLoginErrorMessage(true);
+        } else {
+          redirect(data.role);
+          localStorage.setItem('user', JSON.stringify({
+            name: data.name,
+            email: data.email,
+            role: data.role,
+            token: data.token }));
+        }
+      });
   };
 
   useEffect(
