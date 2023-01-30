@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import NavBar from '../components/navbar';
 import CardProducts from '../components/cardProducts';
 import AppContext from '../context/app.context';
@@ -63,22 +63,29 @@ function addProductCartLocalStorage(product, quant) {
 export default function Products() {
   const { products } = useContext(AppContext);
   const [totalPrice, setTotalPrice] = useState(0);
-  // const navigate = useNavigate();
+  const [auth, setAuth] = useState(true);
+  const navigate = useNavigate();
 
-  // const [carrinho, setCarrinho] = useState([]);
+  function redirect() {
+    navigate('/customer/checkout');
+  }
+  const user = JSON.parse(localStorage.getItem('user'));
 
-  // function redirect() {
-  //   navigate('/customer/checkout');
-  // }
+  useEffect(() => {
+    if (!user.token) {
+      setAuth(false);
+    }
+  }, [user.token]);
 
   return (
     <>
+      { !auth && <Navigate to="/login" /> }
       <NavBar />
       <h1>Produtos</h1>
       <TotalAmount />
       <div>
         {
-          products && products.map((product) => (
+          products && products?.map((product) => (
             <CardProducts
               addLocalStorage={ addProductCartLocalStorage }
               updateTotal={ () => updateTotal(setTotalPrice) }

@@ -1,47 +1,44 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useForm } from 'react-hook-form';
 import NavBar from '../components/navbar';
 import OrderProducts from '../components/OrderProducts';
 import { requestOrder } from '../routes/order.routes';
+import AppContext from '../context/app.context';
 
 const STATUS_CREATED = 201;
 
-const names = ['Isabelly', 'Jadson', 'Japhé'];
-
-const mockOrder = {
-  userId: 1,
-  sellerId: 1,
-  totalPrice: 2.0,
-  deliveryAddress: 'Rua 2',
-  deliveryNumber: '05/05/2005',
-  saleDate: new Date().getDate(),
-  status: 'Pendente',
-};
-
 function Checkout() {
+  const { sellers } = useContext(AppContext);
+  const { register, handleSubmit } = useForm();
   const redirect = useNavigate();
 
-  const [order, setOrder] = useState({});
-
-  console.log(order);
+  const c1 = JSON.parse(localStorage.getItem('carrinho')).filter((e) => e.quantity > 0);
+  const [cart, setCart] = useState(c1.map((cp, i) => ({ id: i, ...cp })));
+  const [aux, setAux] = useState(true);
+  const totalPrice = cart
+    .reduce((acc, curr) => acc + curr.subTotal, 0).toFixed(2).toString();
 
   const user = JSON.parse(localStorage.getItem('user'));
 
-  async function submitOrder() {
-    const request = await requestOrder(mockOrder, user?.token);
+  const timeElapsed = Date.now();
+  const today = new Date(timeElapsed);
+
+  const [order, setOrder] = useState({
+    products: cart,
+    userId: user?.id,
+    totalPrice,
+    saleDate: today.toUTCString(),
+    status: 'Pendente',
+  });
+
+  async function onSubmit(data) {
+    const request = await requestOrder({ ...order, ...data }, user?.token);
     if (request.status === STATUS_CREATED) {
       setOrder(request.data);
       redirect(`/customer/orders/${request.data.id}`);
     }
   }
-
-  // const carProducts = JSON
-  //   .parse(localStorage.getItem('carrinho')).filter((e) => e.quantity > 0);
-  // const carProductsWithId = carProducts.map((cp, i) => ({ id: i, ...cp }));
-
-  const c1 = JSON.parse(localStorage.getItem('carrinho')).filter((e) => e.quantity > 0);
-  const [cart, setCart] = useState(c1.map((cp, i) => ({ id: i, ...cp })));
-  const [aux, setAux] = useState(true);
 
   useEffect(() => {
     const c2 = JSON.parse(localStorage.getItem('carrinho')).filter((e) => e.quantity > 0);
@@ -55,21 +52,23 @@ function Checkout() {
         Finalizar pedido
       </h1>
       <div>
-        { cart.map((checkoutOrder) => (<OrderProducts
-          product={ checkoutOrder }
-          key={ checkoutOrder.productId }
-          updateCheckout={ { setAux, aux } }
-        />))}
+        {cart.map((checkoutOrder) => (
+          <OrderProducts
+            product={ checkoutOrder }
+            key={ checkoutOrder.productId }
+            updateCheckout={ { setAux, aux } }
+          />
+        ))}
       </div>
       <div>
         <strong>Total: </strong>
         <span>R$ </span>
-        { ' ' }
+        {' '}
         <span data-testid="customer_checkout__element-order-total-price">
-          { cart.reduce((acc, curr) => acc + curr.subTotal, 0).toFixed(2).toString().replace(/\./, ',')}
+          {totalPrice.replace(/\./, ',')}
         </span>
       </div>
-      <div>
+      <form onSubmit={ handleSubmit(onSubmit) }>
         <h1>
           Detalhes de Endereço para Entrega
         </h1>
@@ -80,8 +79,10 @@ function Checkout() {
           <select
             data-testid="customer_checkout__select-seller"
             name="select"
+            { ...register('sellerId') }
           >
-            { names.map((name, index) => (<option key={ index }>{name}</option>))}
+            { sellers?.map(({ name, id }) => (
+              <option key={ id } value={ id }>{name}</option>))}
           </select>
         </div>
         <div>
@@ -91,6 +92,7 @@ function Checkout() {
           <input
             data-testid="customer_checkout__input-address"
             type="text"
+            { ...register('deliveryAddress') }
           />
         </div>
         <div>
@@ -100,18 +102,18 @@ function Checkout() {
           <input
             data-testid="customer_checkout__input-address-number"
             type="text"
+            { ...register('deliveryNumber') }
           />
         </div>
         <div>
           <button
             data-testid="customer_checkout__button-submit-order"
             type="submit"
-            onClick={ submitOrder }
           >
             FINALIZAR PEDIDO
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

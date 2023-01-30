@@ -1,14 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
     const SaleProductTable = sequelize.define(
-        "sale_product",
+        "salesProducts",
         {
-          sale_id: DataTypes.INTEGER,
-          product_id: DataTypes.INTEGER,
           quantity: DataTypes.INTEGER,
         },
         {
             tablename: "sales_products",
             timestamps: false,
+            tableName: 'sales_products',
         },
     );
 
