@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerSchema } from '../validations/schemas';
+// import { postRegister } from '../routes/register.routes';
 
 export default function Register() {
   const USER_CONFLICT = 409;

@@ -2,14 +2,17 @@ import React, { useCallback, useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { registerSchema } from '../validations/schemas';
 import NavBar from '../components/navbar';
+import { postRegisterManager } from '../routes/register.routes';
 
 export default function Manage() {
+  const USER_CONFLICT = 409;
   const [isDisabled, setIsDisabled] = useState(true);
+  const [loginErrorMessage, setLoginErrorMessage] = useState(false);
   const [registerValues, setRegisterValues] = useState({
     name: '',
     email: '',
     password: '',
-    role: '',
+    role: 'customer',
   });
 
   const handleChange = ({ target: { name, value } }) => {
@@ -28,6 +31,16 @@ export default function Manage() {
 
     [registerValues],
   );
+
+  const handleSubmit = async (e) => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    e.preventDefault();
+    const request = await postRegisterManager(registerValues, token);
+    console.log('REQUEST DO ADM : ', request);
+    if (request === USER_CONFLICT) {
+      setLoginErrorMessage(true);
+    }
+  };
 
   useEffect(
     () => {
@@ -86,8 +99,8 @@ export default function Manage() {
             onChange={ handleChange }
             data-testid="admin_manage__select-role"
           >
-            <option>Vendedor</option>
-            <option>Cliente</option>
+            <option>seller</option>
+            <option>customer</option>
           </select>
         </label>
         <div className="container-register-button">
@@ -100,6 +113,11 @@ export default function Manage() {
           </button>
         </div>
       </form>
+      { loginErrorMessage && (
+        <h2 data-testid="admin_manage__element-invalid-register">
+          Email já utilizado.
+        </h2>
+      ) }
     </div>
   );
 }

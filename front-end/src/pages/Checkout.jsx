@@ -21,8 +21,6 @@ function Checkout() {
 
   const user = JSON.parse(localStorage.getItem('user'));
 
-  console.log('USER DO LCOALSTORAGE, ', user);
-
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
 
