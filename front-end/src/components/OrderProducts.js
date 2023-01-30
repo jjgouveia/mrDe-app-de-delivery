@@ -87,7 +87,7 @@ OrderProducts.propTypes = {
 };
 
 OrderProducts.defaultProps = {
-  updateCheckout: 'true',
+  updateCheckout: { aux: true, setAux: () => {} },
 };
 
 export default OrderProducts;

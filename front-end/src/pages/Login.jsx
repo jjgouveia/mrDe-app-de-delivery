@@ -46,6 +46,7 @@ export default function Login() {
     try {
       const request = await login(loginValues);
       localStorage.setItem('user', JSON.stringify({
+        id: request.data.id,
         name: request.data.name,
         email: request.data.email,
         role: request.data.role,
