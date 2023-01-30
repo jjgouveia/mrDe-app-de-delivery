@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { deleteUserById } from '../routes/user.routes';
+import AppContext from '../context/app.context';
 
 function CardUsers(props) {
-  const borderSolidBlac = '2px solid black';
+  const { setUsers } = useContext(AppContext);
+
+  const handleDelete = async (id) => {
+    const newUsers = await deleteUserById(id);
+    setUsers([...newUsers.data]);
+  };
+
   const { useDetails } = props;
+  const borderSolidBlac = '2px solid black';
   const { id, name, email, role } = useDetails;
   return (
     <div style={ { display: 'flex', padding: '10px', textAlign: 'center' } }>
@@ -48,19 +57,7 @@ function CardUsers(props) {
         <button
           data-testid={ `admin_manage__element-user-table-remove-${id}` }
           type="submit"
-          // onClick={ () => {
-          //   const cart = JSON.parse(localStorage.getItem('carrinho'));
-
-          //   cart.forEach((el) => {
-          //     if (el.productId === productId) {
-          //       el.quantity = 0;
-          //     }
-          //   });
-
-          //   localStorage.setItem('carrinho', JSON.stringify(cart));
-          //   const v = updateCheckout.aux;
-          //   updateCheckout.setAux(!v);
-          // } }
+          onClick={ () => { handleDelete(id); } }
         >
           Remover
         </button>
@@ -71,6 +68,7 @@ function CardUsers(props) {
 CardUsers.propTypes = {
   useDetails: PropTypes
     .objectOf(Object).isRequired,
+  // updateRender: PropTypes.number.isRequired,
   // useDetails: PropTypes
   //   .objectOf(Object),
 };

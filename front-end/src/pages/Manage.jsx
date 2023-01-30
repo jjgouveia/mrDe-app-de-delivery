@@ -1,33 +1,21 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useContext } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { registerSchema } from '../validations/schemas';
 import NavBar from '../components/navbar';
 import { postRegisterManager } from '../routes/register.routes';
 import CardUsers from '../components/cardUsers';
+import AppContext from '../context/app.context';
 
 export default function Manage() {
-  const userListMock = [
-    {
-      id: 1,
-      name: 'Delivery App Admin',
-      email: 'adm@deliveryapp.com',
-      role: 'administrator',
-    },
-    {
-      id: 2,
-      name: 'ClientEEE Zé Birita',
-      email: 'zebirita@email.com',
-      role: 'customer',
-    },
-    {
-      id: 3,
-      name: 'Funala PereirAAAa',
-      email: 'fulana@deliveryapp.com',
-      role: 'seller',
-    },
-  ];
+  const { users, setUsers } = useContext(AppContext);
 
-  const userListMockFiltered = userListMock.filter((e) => e.role !== 'administrator');
+  // const usersFiltered = users.filter((e) => e.role !== 'administrator');
+
+  // const [usersState, setUsers] = useState(users);
+
+  // const [updateRender, setUpdateRender] = useState(0);
+
+  const usersFiltered = users.filter((e) => e.role !== 'administrator');
 
   const USER_CONFLICT = 409;
   const [isDisabled, setIsDisabled] = useState(true);
@@ -60,10 +48,9 @@ export default function Manage() {
     const { token } = JSON.parse(localStorage.getItem('user'));
     e.preventDefault();
     const request = await postRegisterManager(registerValues, token);
-    console.log('REQUEST DO ADM : ', request);
     if (request === USER_CONFLICT) {
       setLoginErrorMessage(true);
-    }
+    } else setUsers([...users, request.data]);
   };
 
   useEffect(
@@ -151,8 +138,16 @@ export default function Manage() {
         </div>
         <div>
           {
-            userListMockFiltered.map((u, i) => {
-              const cardList = (<div key={ i }><CardUsers useDetails={ u } /></div>);
+            usersFiltered.map((u, i) => {
+              const cardList = (
+                <div key={ i }>
+                  <CardUsers
+                    useDetails={ u }
+                    // update={ updateRender }
+                  />
+
+                </div>
+              );
               return cardList;
             })
           }

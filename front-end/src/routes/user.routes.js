@@ -19,3 +19,14 @@ export const getUsers = async () => {
     return { error: err.response };
   }
 };
+
+export const deleteUserById = async (id) => {
+  try {
+    const users = await axiosInstance.delete(`user/${id}`);
+    return users;
+    // const sellers = request.data.filter((e) => e.role === 'seller');
+    // return request.data;
+  } catch (err) {
+    return { error: err.response };
+  }
+};

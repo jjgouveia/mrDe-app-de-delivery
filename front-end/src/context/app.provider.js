@@ -7,6 +7,7 @@ import { getSellers, getUsers } from '../routes/user.routes';
 function AppProvider({ children }) {
   const [products, setProducts] = useState([]);
   const [sellers, setSellers] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     getProducts()
@@ -18,7 +19,7 @@ function AppProvider({ children }) {
         .map(({ name, id }) => ({ name, id }))));
 
     getUsers()
-      .then((data) => setSellers(data
+      .then((data) => setUsers(data
         .map(({ name, id, email, role }) => ({ name, id, email, role }))));
   }, []);
 
@@ -57,10 +58,12 @@ function AppProvider({ children }) {
   const context = useMemo(() => ({
     products,
     sellers,
+    users,
+    setUsers,
     insertProduct,
     removeProduct,
     manualSetProduct,
-  }), [products, sellers]);
+  }), [products, sellers, users]);
 
   return (
     <AppContext.Provider value={ context }>
