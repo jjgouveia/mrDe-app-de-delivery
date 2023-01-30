@@ -50,9 +50,7 @@ export default function Manage() {
     const request = await postRegisterManager(registerValues, token);
     if (request === USER_CONFLICT) {
       setLoginErrorMessage(true);
-    }
-    console.log('REQUEST', request.data);
-    setUsers([...users, request.data]);
+    } else setUsers([...users, request.data]);
   };
 
   useEffect(
