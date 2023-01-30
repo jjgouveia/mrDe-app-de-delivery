@@ -17,6 +17,15 @@ const registerUser = async (req, res) => {
     });
 };
 
+const registerUserManager = async (req, res) => {
+    const request = await service.registerUserManager(req.body);
+
+    if (request.type === 400) return res.status(request.type).json({ message: request.message });
+
+    return res.status(201).json('Created');
+};
+
 module.exports = {
     registerUser,
+    registerUserManager,
 };
