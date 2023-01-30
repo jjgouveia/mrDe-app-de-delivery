@@ -8,15 +8,24 @@ const getUserById = async (id) => {
 };
 
 const getAllSellers = async () => {
-    const request = await user.findAll({
-        where: { role: 'seller' },
-    });
+    // const request = await user.findAll({
+    //     where: { role: 'seller' },
+    // });
+    const request = await user.findAll();
 
     if (!request) throw new HttpException(404, 'Ops! We can\'t find anything');
     return request;
 };
 
+// const getAllUsers = async () => {
+//     const request = await user.findAll();
+
+//     if (!request) throw new HttpException(404, 'Ops! We can\'t find anything');
+//     return request;
+// };
+
 module.exports = {
     getUserById,
     getAllSellers,
+    // getAllUsers,
 };

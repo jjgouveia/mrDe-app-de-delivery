@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { node } from 'prop-types';
 import AppContext from './app.context';
-import { getProducts, getSeller } from '../api/getters';
+import { getProducts } from '../api/getters';
+import { getSellers, getUsers } from '../routes/user.routes';
 
 function AppProvider({ children }) {
   const [products, setProducts] = useState([]);
@@ -9,9 +10,16 @@ function AppProvider({ children }) {
 
   useEffect(() => {
     getProducts()
-      .then((data) => setProducts(data.map((product) => ({ ...product, quantity: 0 }))));
+      .then((data) => setProducts(data
+        .map((product) => ({ ...product, quantity: 0 }))));
 
-    getSeller().then((data) => setSellers(data.map(({ name, id }) => ({ name, id }))));
+    getSellers()
+      .then((data) => setSellers(data
+        .map(({ name, id }) => ({ name, id }))));
+
+    getUsers()
+      .then((data) => setSellers(data
+        .map(({ name, id, email, role }) => ({ name, id, email, role }))));
   }, []);
 
   function insertProduct(data) {
