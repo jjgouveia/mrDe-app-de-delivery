@@ -1,5 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { deleteUserById } from '../routes/user.routes';
+
+async function handleDelete(id) {
+  await deleteUserById(id);
+}
 
 function CardUsers(props) {
   const borderSolidBlac = '2px solid black';
@@ -48,19 +53,7 @@ function CardUsers(props) {
         <button
           data-testid={ `admin_manage__element-user-table-remove-${id}` }
           type="submit"
-          // onClick={ () => {
-          //   const cart = JSON.parse(localStorage.getItem('carrinho'));
-
-          //   cart.forEach((el) => {
-          //     if (el.productId === productId) {
-          //       el.quantity = 0;
-          //     }
-          //   });
-
-          //   localStorage.setItem('carrinho', JSON.stringify(cart));
-          //   const v = updateCheckout.aux;
-          //   updateCheckout.setAux(!v);
-          // } }
+          onClick={ () => { handleDelete(id); } }
         >
           Remover
         </button>

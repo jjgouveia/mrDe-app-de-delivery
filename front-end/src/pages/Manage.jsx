@@ -1,33 +1,36 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useContext } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { registerSchema } from '../validations/schemas';
 import NavBar from '../components/navbar';
 import { postRegisterManager } from '../routes/register.routes';
 import CardUsers from '../components/cardUsers';
+import AppContext from '../context/app.context';
 
 export default function Manage() {
-  const userListMock = [
-    {
-      id: 1,
-      name: 'Delivery App Admin',
-      email: 'adm@deliveryapp.com',
-      role: 'administrator',
-    },
-    {
-      id: 2,
-      name: 'ClientEEE Zé Birita',
-      email: 'zebirita@email.com',
-      role: 'customer',
-    },
-    {
-      id: 3,
-      name: 'Funala PereirAAAa',
-      email: 'fulana@deliveryapp.com',
-      role: 'seller',
-    },
-  ];
+  const { users } = useContext(AppContext);
+  // const userListMock = [
+  //   {
+  //     id: 1,
+  //     name: 'Delivery App Admin',
+  //     email: 'adm@deliveryapp.com',
+  //     role: 'administrator',
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'ClientEEE Zé Birita',
+  //     email: 'zebirita@email.com',
+  //     role: 'customer',
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Funala PereirAAAa',
+  //     email: 'fulana@deliveryapp.com',
+  //     role: 'seller',
+  //   },
+  // ];
 
-  const userListMockFiltered = userListMock.filter((e) => e.role !== 'administrator');
+  // const userListMockFiltered = userListMock.filter((e) => e.role !== 'administrator');
+  const usersFiltered = users.filter((e) => e.role !== 'administrator');
 
   const USER_CONFLICT = 409;
   const [isDisabled, setIsDisabled] = useState(true);
@@ -151,7 +154,7 @@ export default function Manage() {
         </div>
         <div>
           {
-            userListMockFiltered.map((u, i) => {
+            usersFiltered.map((u, i) => {
               const cardList = (<div key={ i }><CardUsers useDetails={ u } /></div>);
               return cardList;
             })
