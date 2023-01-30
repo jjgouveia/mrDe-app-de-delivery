@@ -1,7 +1,6 @@
 import axiosInstance from './axios';
 
 export const requestOrder = async (body, token) => {
-  console.log('REQUEST BODY FRONTEND', body);
   try {
     const request = await axiosInstance.post('/sales', body, {
       headers: { Authorization: token },

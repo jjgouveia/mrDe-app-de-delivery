@@ -24,7 +24,6 @@ export const postRegisterManager = async (body, token) => {
     const request = await axiosInstance.post('/managerRegister', body, {
       headers: { Authorization: token },
     });
-    console.log('REQUEST ', request);
     if (request.status === USER_CONFLICT) {
       return request.status;
     }
