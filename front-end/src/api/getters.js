@@ -12,12 +12,12 @@ const getProducts = () => {
   return allProducts;
 };
 
-const getSeller = () => {
-  const sellers = fetch('http://localhost:3001/user/sellers', {
-    method: 'GET',
-  }).then((response) => response.json());
-  return sellers;
-};
+// const getSeller = () => {
+//   const sellers = fetch('http://localhost:3001/user/sellers', {
+//     method: 'GET',
+//   }).then((response) => response.json());
+//   return sellers;
+// };
 
 const getImage = (url) => {
   const image = fetch(url)
@@ -29,5 +29,5 @@ const getImage = (url) => {
 export {
   getImage,
   getProducts,
-  getSeller,
+  // getSeller,
 };

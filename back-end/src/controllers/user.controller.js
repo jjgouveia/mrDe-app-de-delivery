@@ -11,13 +11,13 @@ const getAllSellers = async (req, res) => {
     return res.status(200).json(sellers);
 }; 
 
-const getAllUsers = async (req, res) => {
-    const sellers = await service.getAllUsers();
-    return res.status(200).json(sellers);
-}; 
+// const getAllUsers = async (req, res) => {
+//     const sellers = await service.getAllUsers();
+//     return res.status(200).json(sellers);
+// }; 
 
 module.exports = {
     getUserById,
     getAllSellers,
-    getAllUsers,
+    // getAllUsers,
 };
