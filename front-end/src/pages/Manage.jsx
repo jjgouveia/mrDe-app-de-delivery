@@ -3,8 +3,32 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { registerSchema } from '../validations/schemas';
 import NavBar from '../components/navbar';
 import { postRegisterManager } from '../routes/register.routes';
+import CardUsers from '../components/cardUsers';
 
 export default function Manage() {
+  const userListMock = [
+    {
+      id: 1,
+      name: 'Delivery App Admin',
+      email: 'adm@deliveryapp.com',
+      role: 'administrator',
+    },
+    {
+      id: 2,
+      name: 'ClientEEE Zé Birita',
+      email: 'zebirita@email.com',
+      role: 'customer',
+    },
+    {
+      id: 3,
+      name: 'Funala PereirAAAa',
+      email: 'fulana@deliveryapp.com',
+      role: 'seller',
+    },
+  ];
+
+  const userListMockFiltered = userListMock.filter((e) => e.role !== 'administrator');
+
   const USER_CONFLICT = 409;
   const [isDisabled, setIsDisabled] = useState(true);
   const [loginErrorMessage, setLoginErrorMessage] = useState(false);
@@ -117,7 +141,23 @@ export default function Manage() {
         <h2 data-testid="admin_manage__element-invalid-register">
           Email já utilizado.
         </h2>
+
       ) }
+      <section>
+        <div>
+          <h1>
+            Lista de usuários
+          </h1>
+        </div>
+        <div>
+          {
+            userListMockFiltered.map((u, i) => {
+              const cardList = (<div key={ i }><CardUsers useDetails={ u } /></div>);
+              return cardList;
+            })
+          }
+        </div>
+      </section>
     </div>
   );
 }
