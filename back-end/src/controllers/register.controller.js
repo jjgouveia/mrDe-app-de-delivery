@@ -22,7 +22,7 @@ const registerUserManager = async (req, res) => {
 
     if (request.type === 400) return res.status(request.type).json({ message: request.message });
 
-    return res.status(201).json('Created');
+    return res.status(201).json(request);
 };
 
 module.exports = {

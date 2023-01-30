@@ -59,6 +59,7 @@ function AppProvider({ children }) {
     products,
     sellers,
     users,
+    setUsers,
     insertProduct,
     removeProduct,
     manualSetProduct,

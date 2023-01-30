@@ -7,29 +7,14 @@ import CardUsers from '../components/cardUsers';
 import AppContext from '../context/app.context';
 
 export default function Manage() {
-  const { users } = useContext(AppContext);
-  // const userListMock = [
-  //   {
-  //     id: 1,
-  //     name: 'Delivery App Admin',
-  //     email: 'adm@deliveryapp.com',
-  //     role: 'administrator',
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'ClientEEE Zé Birita',
-  //     email: 'zebirita@email.com',
-  //     role: 'customer',
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Funala PereirAAAa',
-  //     email: 'fulana@deliveryapp.com',
-  //     role: 'seller',
-  //   },
-  // ];
+  const { users, setUsers } = useContext(AppContext);
 
-  // const userListMockFiltered = userListMock.filter((e) => e.role !== 'administrator');
+  // const usersFiltered = users.filter((e) => e.role !== 'administrator');
+
+  // const [usersState, setUsers] = useState(users);
+
+  // const [updateRender, setUpdateRender] = useState(0);
+
   const usersFiltered = users.filter((e) => e.role !== 'administrator');
 
   const USER_CONFLICT = 409;
@@ -63,10 +48,11 @@ export default function Manage() {
     const { token } = JSON.parse(localStorage.getItem('user'));
     e.preventDefault();
     const request = await postRegisterManager(registerValues, token);
-    console.log('REQUEST DO ADM : ', request);
     if (request === USER_CONFLICT) {
       setLoginErrorMessage(true);
     }
+    console.log('REQUEST', request.data);
+    setUsers([...users, request.data]);
   };
 
   useEffect(
@@ -155,7 +141,15 @@ export default function Manage() {
         <div>
           {
             usersFiltered.map((u, i) => {
-              const cardList = (<div key={ i }><CardUsers useDetails={ u } /></div>);
+              const cardList = (
+                <div key={ i }>
+                  <CardUsers
+                    useDetails={ u }
+                    // update={ updateRender }
+                  />
+
+                </div>
+              );
               return cardList;
             })
           }

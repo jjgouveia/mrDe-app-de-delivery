@@ -22,7 +22,8 @@ export const getUsers = async () => {
 
 export const deleteUserById = async (id) => {
   try {
-    await axiosInstance.delete(`user/${id}`);
+    const users = await axiosInstance.delete(`user/${id}`);
+    return users;
     // const sellers = request.data.filter((e) => e.role === 'seller');
     // return request.data;
   } catch (err) {
