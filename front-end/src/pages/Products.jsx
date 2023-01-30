@@ -103,7 +103,7 @@ export default function Products() {
 
       <span>Carrinho: </span>
       <button
-        // onClick={ redirect }
+        onClick={ redirect }
         data-testid="customer_products__button-cart"
         type="button"
       >
