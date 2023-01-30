@@ -4,7 +4,6 @@ import { login } from '../routes/auth.routes';
 import { loginSchema } from '../validations/schemas';
 
 export default function Login() {
-  // const NOT_FOUND = 404;
   const location = useLocation();
   const navigate = useNavigate();
   const [isDisabled, setIsDisabled] = useState(true);
@@ -28,16 +27,10 @@ export default function Login() {
   );
 
   const redirect = (role) => {
-    console.log(role);
-    if (role === 'seller') {
-      navigate('/seller/products');
-    }
-    if (role === 'customer') {
-      navigate('/customer/products');
-    }
     if (role === 'administrator') {
       navigate('/admin/manage');
     }
+    navigate('/customer/products');
   };
 
   const handleSubmit = async (e) => {
@@ -54,7 +47,6 @@ export default function Login() {
       }));
       redirect(request.data.role);
     } catch (error) {
-      console.log(error.response.status);
       setLoginErrorMessage(true);
     }
   };
