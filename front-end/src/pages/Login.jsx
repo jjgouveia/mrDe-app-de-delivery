@@ -39,6 +39,9 @@ export default function Login() {
     if (role === 'customer') {
       navigate('/customer/products');
     }
+    if (role === 'seller') {
+      navigate('/seller/orders');
+    }
   };
 
   const handleSubmit = async (e) => {
