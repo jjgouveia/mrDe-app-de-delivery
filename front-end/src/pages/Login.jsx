@@ -13,6 +13,12 @@ export default function Login() {
     password: '',
   });
 
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  if (localStorage.getItem('user')) {
+    navigate('/birita');
+  }
+
   const validateInput = useCallback(
     async () => {
       try {
@@ -30,7 +36,9 @@ export default function Login() {
     if (role === 'administrator') {
       navigate('/admin/manage');
     }
-    navigate('/customer/products');
+    if (role === 'customer') {
+      navigate('/customer/products');
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -67,6 +75,12 @@ export default function Login() {
     },
     [loginValues, validateInput],
   );
+
+  useEffect(() => {
+    if (user) {
+      redirect(user?.role);
+    }
+  });
 
   return (
     <section className="form-container">
@@ -117,11 +131,11 @@ export default function Login() {
           </Link>
         </div>
       </form>
-      { loginErrorMessage && (
+      {loginErrorMessage && (
         <h2 data-testid="common_login__element-invalid-email">
           Usuário ou senha inválidos
         </h2>
-      ) }
+      )}
     </section>
   );
 }
