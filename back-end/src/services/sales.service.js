@@ -2,7 +2,6 @@ const { sale, salesProducts, product } = require('../database/models');
 
 const findProduct = async (column, search) => {
     const request = await product.findOne({ where: { [column]: search } });
-    console.log('PRODUTO PROCURADO: ', request);
     return Number(request.dataValues.id);
 };
 
@@ -33,7 +32,6 @@ const registerSale = async (newSale) => {
 const createSale = async (body) => {
     try {
         const registerResponse = await registerSale(body);
-        console.log('BODY DA CREATESALE: ', registerResponse);
         const relational = body.products.map(async (bodyProduct) => {
             const { name, quantity } = bodyProduct;
             const productId = await findProduct('name', name);

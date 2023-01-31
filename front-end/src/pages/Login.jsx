@@ -4,7 +4,6 @@ import { login } from '../routes/auth.routes';
 import { loginSchema } from '../validations/schemas';
 
 export default function Login() {
-  // const NOT_FOUND = 404;
   const location = useLocation();
   const navigate = useNavigate();
   const [isDisabled, setIsDisabled] = useState(true);
@@ -13,6 +12,12 @@ export default function Login() {
     email: '',
     password: '',
   });
+
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  if (localStorage.getItem('user')) {
+    navigate('/birita');
+  }
 
   const validateInput = useCallback(
     async () => {
@@ -28,15 +33,11 @@ export default function Login() {
   );
 
   const redirect = (role) => {
-    console.log(role);
-    if (role === 'seller') {
-      navigate('/seller/products');
+    if (role === 'administrator') {
+      navigate('/admin/manage');
     }
     if (role === 'customer') {
       navigate('/customer/products');
-    }
-    if (role === 'administrator') {
-      navigate('/admin/manage');
     }
   };
 
@@ -54,7 +55,6 @@ export default function Login() {
       }));
       redirect(request.data.role);
     } catch (error) {
-      console.log(error.response.status);
       setLoginErrorMessage(true);
     }
   };
@@ -75,6 +75,12 @@ export default function Login() {
     },
     [loginValues, validateInput],
   );
+
+  useEffect(() => {
+    if (user) {
+      redirect(user?.role);
+    }
+  });
 
   return (
     <section className="form-container">
@@ -125,11 +131,11 @@ export default function Login() {
           </Link>
         </div>
       </form>
-      { loginErrorMessage && (
+      {loginErrorMessage && (
         <h2 data-testid="common_login__element-invalid-email">
           Usuário ou senha inválidos
         </h2>
-      ) }
+      )}
     </section>
   );
 }

@@ -14,7 +14,7 @@ const dataMock = [
     status: 'Pendente',
   },
   {
-    id: 1,
+    id: 2,
     userId: 1,
     sellerId: 1,
     totalPrice: 50.99,
@@ -24,7 +24,7 @@ const dataMock = [
     status: 'Pendente',
   },
   {
-    id: 1,
+    id: 3,
     userId: 1,
     sellerId: 1,
     totalPrice: 50.99,
@@ -34,7 +34,7 @@ const dataMock = [
     status: 'Pendente',
   },
   {
-    id: 1,
+    id: 4,
     userId: 1,
     sellerId: 1,
     totalPrice: 50.99,
@@ -44,7 +44,7 @@ const dataMock = [
     status: 'Pendente',
   },
   {
-    id: 1,
+    id: 5,
     userId: 1,
     sellerId: 1,
     totalPrice: 50.99,
