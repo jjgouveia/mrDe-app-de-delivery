@@ -26,7 +26,7 @@ function Checkout() {
 
   const [order, setOrder] = useState({
     products: cart,
-    userId: user?.id,
+    userId: user.id,
     totalPrice,
     saleDate: today.toUTCString(),
     status: 'Pendente',
@@ -36,7 +36,7 @@ function Checkout() {
     const request = await requestOrder({ ...order, ...data }, user?.token);
     if (request.status === STATUS_CREATED) {
       setOrder(request.data);
-      redirect(`/customer/orders/${request.data.id}`);
+      redirect(`/customer/orders/${request.data.userId}`);
     }
   }
 
