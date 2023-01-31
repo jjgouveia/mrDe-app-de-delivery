@@ -1,4 +1,5 @@
 const { sale, salesProducts, product } = require('../database/models');
+const HttpException = require('../utils/http.exception');
 
 const findProduct = async (column, search) => {
     const request = await product.findOne({ where: { [column]: search } });
@@ -49,6 +50,13 @@ const createSale = async (body) => {
     }
 };
 
+const getAllSallesById = async (userId) => {
+    const sales = await sale.findAll({ where: { userId } });
+    if (!sales || !sales.length) throw new HttpException(404, 'User not found');
+    return sales;
+};
+
 module.exports = {
     createSale,
+    getAllSallesById,
 };

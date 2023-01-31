@@ -1,67 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import NavBar from '../components/navbar';
 import ProductP from '../components/productsP';
-
-const dataMock = [
-  {
-    id: 1,
-    userId: 1,
-    sellerId: 1,
-    totalPrice: 50.99,
-    deliveryAddress: 'Rua Tal',
-    deliveryNumber: '71992693058',
-    saleDate: '08/04/21',
-    status: 'Pendente',
-  },
-  {
-    id: 2,
-    userId: 1,
-    sellerId: 1,
-    totalPrice: 50.99,
-    deliveryAddress: 'Rua Tal',
-    deliveryNumber: '71992693058',
-    saleDate: '08/04/21',
-    status: 'Pendente',
-  },
-  {
-    id: 3,
-    userId: 1,
-    sellerId: 1,
-    totalPrice: 50.99,
-    deliveryAddress: 'Rua Tal',
-    deliveryNumber: '71992693058',
-    saleDate: '08/04/21',
-    status: 'Pendente',
-  },
-  {
-    id: 4,
-    userId: 1,
-    sellerId: 1,
-    totalPrice: 50.99,
-    deliveryAddress: 'Rua Tal',
-    deliveryNumber: '71992693058',
-    saleDate: '08/04/21',
-    status: 'Pendente',
-  },
-  {
-    id: 5,
-    userId: 1,
-    sellerId: 1,
-    totalPrice: 50.99,
-    deliveryAddress: 'Rua Tal',
-    deliveryNumber: '71992693058',
-    saleDate: '08/04/21',
-    status: 'Pendente',
-  },
-];
+import { getOrdersByUserId } from '../routes/order.routes';
 
 export default function Orders() {
+  const [orders, setOrders] = useState([]);
+
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  const getOrders = useCallback(async () => {
+    const { data } = await getOrdersByUserId(user?.id, user?.token);
+    setOrders(data);
+  }, [user?.id, user?.token]);
+
+  useEffect(() => {
+    getOrders();
+  }, [getOrders]);
+
   return (
     <div>
       <NavBar />
       <h1>Pedidos</h1>
       <div>
-        { dataMock.map((product, i) => (<ProductP product={ product } key={ i } />))}
+        { !orders || !orders.length
+          ? <h2>Carregando a lista</h2>
+          : orders.map((product, i) => (<ProductP product={ product } key={ i } />))}
       </div>
     </div>
   );
