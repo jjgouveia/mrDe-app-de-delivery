@@ -51,10 +51,10 @@ const createSale = async (body) => {
 };
 
 const getAllSallesById = async (userId) => {
-    const sales = await sale.findAll({ where: { user_id: userId }});
+    const sales = await sale.findAll({ where: { userId } });
     if (!sales || !sales.length) throw new HttpException(404, 'User not found');
     return sales;
-}
+};
 
 module.exports = {
     createSale,
