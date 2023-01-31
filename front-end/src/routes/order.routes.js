@@ -12,4 +12,14 @@ export const requestOrder = async (body, token) => {
   }
 };
 
-export const t = () => t;
+export const getAllSales = async (token) => {
+  try {
+    const request = await axiosInstance.get('/sales', {
+      headers: { Authorization: token },
+    });
+
+    return request.data;
+  } catch (err) {
+    return { error: err };
+  }
+};

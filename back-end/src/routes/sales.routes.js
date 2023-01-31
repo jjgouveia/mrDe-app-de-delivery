@@ -8,5 +8,6 @@ const router = express.Router();
 router.use(authMiddeware);
 
 router.post('/', rescue((req, res) => controller.registerSale(req, res)));
+router.get('/', rescue((req, res) => controller.getAllSales(req, res)));
 
 module.exports = router;

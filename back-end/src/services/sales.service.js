@@ -1,4 +1,5 @@
 const { sale, salesProducts, product } = require('../database/models');
+const HttpException = require('../utils/http.exception');
 
 const findProduct = async (column, search) => {
     const request = await product.findOne({ where: { [column]: search } });
@@ -49,6 +50,17 @@ const createSale = async (body) => {
     }
 };
 
+const getAllSales = async () => {
+    // const request = await user.findAll({
+    //     where: { role: 'seller' },
+    // });
+    const request = await sale.findAll();
+
+    if (!request) throw new HttpException(404, 'Ops! We can\'t find anything');
+    return request;
+};
+
 module.exports = {
     createSale,
+    getAllSales,
 };

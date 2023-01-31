@@ -8,6 +8,7 @@ function AppProvider({ children }) {
   const [products, setProducts] = useState([]);
   const [sellers, setSellers] = useState([]);
   const [users, setUsers] = useState([]);
+  // const [sales, setSales] = useState([]);
 
   useEffect(() => {
     getProducts()
@@ -21,6 +22,9 @@ function AppProvider({ children }) {
     getUsers()
       .then((data) => setUsers(data
         .map(({ name, id, email, role }) => ({ name, id, email, role }))));
+
+    // getAllSales()
+    //   .then((data) => setProducts(data));
   }, []);
 
   function insertProduct(data) {
