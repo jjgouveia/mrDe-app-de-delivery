@@ -43,7 +43,7 @@ export default function ProductP(props) {
           <span
             data-testid={ `customer_orders__element-card-price--${id}` }
           >
-            { totalPrice }
+            { totalPrice.replace(/\./, ',') }
           </span>
         </p>
       </Link>
