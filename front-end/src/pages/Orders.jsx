@@ -22,9 +22,7 @@ export default function Orders() {
       <NavBar />
       <h1>Pedidos</h1>
       <div>
-        { !orders || !orders.length
-          ? <h2>Carregando a lista</h2>
-          : orders.map((product, i) => (<ProductP product={ product } key={ i } />))}
+        { orders?.map((product, i) => (<ProductP product={ product } key={ i } />))}
       </div>
     </div>
   );
