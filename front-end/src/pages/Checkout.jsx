@@ -28,7 +28,7 @@ function Checkout() {
     products: cart,
     userId: user?.id,
     totalPrice,
-    saleDate: today.toUTCString(),
+    saleDate: today,
     status: 'Pendente',
   });
 

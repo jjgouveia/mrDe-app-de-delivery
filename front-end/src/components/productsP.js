@@ -1,44 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default function ProductP(props) {
   const borderSolidBlac = '2px solid black';
   const { product } = props;
   const { id, status, saleDate, totalPrice } = product;
+
   return (
-    <div style={ { display: 'flex', padding: '10px', textAlign: 'center' } }>
-      <div style={ { border: borderSolidBlac, padding: '2px' } }>
-        <p>Pedido: </p>
-        <span
-          data-testid={ `customer_orders__element-order-id-${id}` }
-        >
-          { id }
-        </span>
-      </div>
-      <div style={ { border: borderSolidBlac, padding: '2px' } }>
-        <p>Status: </p>
-        <span
-          data-testid={ `customer_orders__element-delivery-status-${id}` }
-        >
-          { status }
-        </span>
-      </div>
-      <div style={ { border: borderSolidBlac, padding: '2px' } }>
-        <p>Data: </p>
-        <span
-          data-testid={ `customer_orders__element-order-date-${id}` }
-        >
-          { saleDate }
-        </span>
-      </div>
-      <div style={ { border: borderSolidBlac, padding: '2px' } }>
-        <p>Preço:</p>
-        <span
-          data-testid={ `customer_orders__element-card-price--${id}` }
-        >
-          { totalPrice }
-        </span>
-      </div>
+    <div style={ { border: borderSolidBlac, padding: '1' } }>
+      <Link to={ `${id}` }>
+        <div>
+          <p>
+            Pedido:
+            <span
+              data-testid={ `customer_orders__element-order-id-${id}` }
+            >
+              { id }
+            </span>
+          </p>
+        </div>
+
+        <p>
+          Status:
+          <span
+            data-testid={ `customer_orders__element-delivery-status-${id}` }
+          >
+            { status }
+          </span>
+        </p>
+
+        <p>
+          Data:
+          <span
+            data-testid={ `customer_orders__element-order-date-${id}` }
+          >
+            { new Date(saleDate).toLocaleDateString('pt-br') }
+          </span>
+        </p>
+
+        <p>
+          Preço:
+          <span
+            data-testid={ `customer_orders__element-card-price--${id}` }
+          >
+            { totalPrice.replace(/\./, ',') }
+          </span>
+        </p>
+      </Link>
     </div>
   );
 }
