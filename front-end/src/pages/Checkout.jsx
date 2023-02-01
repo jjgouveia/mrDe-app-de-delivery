@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect, useContext } from 'react';
-// eslint-disable-next-line import/no-unresolved
 import { useForm } from 'react-hook-form';
 import NavBar from '../components/navbar';
 import OrderProducts from '../components/OrderProducts';
@@ -29,7 +28,7 @@ function Checkout() {
     products: cart,
     userId: user?.id,
     totalPrice,
-    saleDate: today.toUTCString(),
+    saleDate: today,
     status: 'Pendente',
   });
 

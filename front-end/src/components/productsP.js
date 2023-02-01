@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 export default function ProductP(props) {
   const { product } = props;
   const { id, status, saleDate, totalPrice } = product;
+
   return (
     <div style={ { border: '1px solid red', padding: '1' } }>
       <Link to={ `${id}` }>
@@ -33,7 +34,7 @@ export default function ProductP(props) {
           <span
             data-testid={ `customer_orders__element-order-date-${id}` }
           >
-            { saleDate }
+            { new Date(saleDate).toLocaleDateString('pt-br') }
           </span>
         </p>
 
