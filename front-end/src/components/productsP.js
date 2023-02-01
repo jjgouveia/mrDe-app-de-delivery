@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export default function ProductP(props) {
+  const borderSolidBlac = '2px solid black';
   const { product } = props;
   const { id, status, saleDate, totalPrice } = product;
 
   return (
-    <div style={ { border: '1px solid red', padding: '1' } }>
+    <div style={ { border: borderSolidBlac, padding: '1' } }>
       <Link to={ `${id}` }>
         <div>
           <p>

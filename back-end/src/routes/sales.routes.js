@@ -8,6 +8,7 @@ const router = express.Router();
 router.use(authMiddeware);
 
 router.post('/', rescue((req, res) => controller.registerSale(req, res)));
+router.get('/', rescue((req, res) => controller.getAllSales(req, res)));
 router.get('/:user_id', rescue((req, res) => controller.getAllSallesById(req, res)));
 
 module.exports = router;

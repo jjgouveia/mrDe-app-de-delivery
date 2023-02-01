@@ -58,6 +58,7 @@ export default function Register() {
         } else {
           redirect(data.role);
           localStorage.setItem('user', JSON.stringify({
+            id: data.id,
             name: data.name,
             email: data.email,
             role: data.role,

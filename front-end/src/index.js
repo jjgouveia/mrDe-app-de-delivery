@@ -13,6 +13,7 @@ import AppProvider from './context/app.provider';
 import Checkout from './pages/Checkout';
 import OrderDetails from './pages/OrderDetails';
 import Manage from './pages/Manage';
+import SellerOrders from './pages/SellerOrders';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,8 @@ const router = createBrowserRouter([
       { path: '/customer/orders/:id', element: <OrderDetails /> },
       { path: '/customer/orders', element: <Orders /> },
       { path: '/admin/manage', element: <Manage /> },
+      { path: '/seller/orders', element: <SellerOrders /> },
+
     ],
   },
   { path: '/login', element: <Login /> },
