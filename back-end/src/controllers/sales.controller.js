@@ -10,13 +10,19 @@ const getAllSales = async (req, res) => {
   return res.status(200).json(request);
 };
 
-const getAllSallesById = async (req, res) => {
-    const request = await service.getAllSallesById(req.params.user_id);
+const getUserSallesById = async (req, res) => {
+    const request = await service.getUserSallesById(req.params.user_id);
     return res.status(200).json(request);
+};
+
+const getSellerSallesById = async (req, res) => {
+  const request = await service.getSellerSallesById(req.params.seller_id);
+  return res.status(200).json(request);
 };
 
 module.exports = {
   registerSale,
   getAllSales,
-  getAllSallesById,
+  getUserSallesById,
+  getSellerSallesById,
 };

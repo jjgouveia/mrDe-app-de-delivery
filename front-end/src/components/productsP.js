@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function ProductP(props) {
   const borderSolidBlac = '2px solid black';
-  const { product } = props;
+  const { product, role } = props;
   const { id, status, saleDate, totalPrice } = product;
 
   return (
@@ -14,7 +14,7 @@ export default function ProductP(props) {
           <p>
             Pedido:
             <span
-              data-testid={ `customer_orders__element-order-id-${id}` }
+              data-testid={ `${role}_orders__element-order-id-${id}` }
             >
               { id }
             </span>
@@ -24,7 +24,7 @@ export default function ProductP(props) {
         <p>
           Status:
           <span
-            data-testid={ `customer_orders__element-delivery-status-${id}` }
+            data-testid={ `${role}_orders__element-delivery-status-${id}` }
           >
             { status }
           </span>
@@ -33,7 +33,7 @@ export default function ProductP(props) {
         <p>
           Data:
           <span
-            data-testid={ `customer_orders__element-order-date-${id}` }
+            data-testid={ `${role}_orders__element-order-date-${id}` }
           >
             { new Date(saleDate).toLocaleDateString('pt-br') }
           </span>
@@ -42,7 +42,7 @@ export default function ProductP(props) {
         <p>
           Preço:
           <span
-            data-testid={ `customer_orders__element-card-price--${id}` }
+            data-testid={ `${role}_orders__element-card-price--${id}` }
           >
             { totalPrice.replace(/\./, ',') }
           </span>
@@ -54,4 +54,5 @@ export default function ProductP(props) {
 
 ProductP.propTypes = {
   product: PropTypes.objectOf(Object).isRequired,
+  role: PropTypes.string.isRequired,
 };

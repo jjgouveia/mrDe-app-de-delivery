@@ -54,17 +54,27 @@ const getAllSales = async () => {
     const request = await sale.findAll();
 
     if (!request) throw new HttpException(404, 'Ops! We can\'t find anything');
+
     return request;
 };
 
-const getAllSallesById = async (userId) => {
+const getUserSallesById = async (userId) => {
     const sales = await sale.findAll({ where: { userId } });
     if (!sales || !sales.length) throw new HttpException(404, 'User not found');
+
+    return sales;
+};
+
+const getSellerSallesById = async (sellerId) => {
+    const sales = await sale.findAll({ where: { sellerId } });
+    if (!sales || !sales.length) throw new HttpException(404, 'User not found');
+
     return sales;
 };
 
 module.exports = {
     createSale,
     getAllSales,
-    getAllSallesById,
+    getUserSallesById,
+    getSellerSallesById,
 };
