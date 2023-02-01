@@ -35,4 +35,16 @@ export const getOrdersByUserId = async (userId, token) => {
   }
 };
 
+export const getOrdersBySellerId = async (sellerId, token) => {
+  try {
+    const request = await axiosInstance.get(`/sales/seller/${sellerId}`, {
+      headers: { Authorization: token },
+    });
+
+    return request;
+  } catch (err) {
+    return { error: err.response };
+  }
+};
+
 export const t = () => t;
