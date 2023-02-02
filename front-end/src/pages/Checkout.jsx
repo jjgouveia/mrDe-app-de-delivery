@@ -33,9 +33,11 @@ function Checkout() {
   });
 
   async function onSubmit(data) {
+    const { sellerId } = data;
+    localStorage.setItem('data', JSON.stringify({ ...order, sellerId }));
     const request = await requestOrder({ ...order, ...data }, user?.token);
     if (request.status === STATUS_CREATED) {
-      setOrder(request.data);
+      setOrder(request.data.id);
       redirect(`/customer/orders/${request.data.id}`);
     }
   }
