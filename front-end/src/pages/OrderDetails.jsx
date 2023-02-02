@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom';
 import NavBar from '../components/navbar';
 import AppContext from '../context/app.context';
 
-// const order2 = JSON.parse(localStorage.getItem('data'));
-
 function formatDate(date) {
   const options = {
     day: '2-digit',
