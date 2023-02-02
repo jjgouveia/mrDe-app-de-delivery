@@ -3,9 +3,16 @@ import { useParams } from 'react-router-dom';
 import NavBar from '../components/navbar';
 import AppContext from '../context/app.context';
 
-function formatDate(date = new Date()) {
-  const ten = 10;
-  return date.toLocaleString().slice(0, ten);
+// const order2 = JSON.parse(localStorage.getItem('data'));
+
+function formatDate(date) {
+  const options = {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  };
+  const formattedDate = new Date(date).toLocaleDateString('pt-BR', options);
+  return formattedDate;
 }
 
 export default function OrderDetails() {
@@ -17,7 +24,6 @@ export default function OrderDetails() {
   let name = '';
 
   if (aux) {
-    console.log(aux.name);
     name = aux.name;
   }
 
