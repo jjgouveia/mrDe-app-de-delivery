@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/navbar';
 import AppContext from '../context/app.context';
 import OrdersP from '../components/OrdersP';
+import { updateStatusOrderById } from '../routes/order.routes';
 
 function formatDate(date) {
   const options = {
@@ -15,11 +16,13 @@ function formatDate(date) {
 }
 
 export default function OrderDetails() {
-  const order = JSON.parse(localStorage.getItem('data'));
+  const orderLocalStorage = JSON.parse(localStorage.getItem('data'));
   const user = JSON.parse(localStorage.getItem('user'));
   const { sellers } = useContext(AppContext);
 
-  const { role } = user;
+  const [order, setOrder] = useState(orderLocalStorage);
+
+  const { role, token } = user;
 
   const aux = sellers.find(({ id }) => id === Number(order.sellerId));
 
@@ -30,13 +33,27 @@ export default function OrderDetails() {
   }
 
   const { id } = useParams();
-  const disabled = true;
+  const deliveryCheckStatus = order.status !== 'Em Trânsito';
+  const dispatchCheckStatus = order.status === 'Pendente';
+  const preparingCheckStatus = order.status !== 'Preparando';
+
+  const handleClick = async (status) => {
+    await updateStatusOrderById(status, id, token);
+    console.log('novo status', order.status);
+    order.status = status;
+    console.log('nova order', order);
+    localStorage.setItem('date', JSON.stringify(order));
+    console.log('novo localStorage', JSON.parse(localStorage.getItem('data')));
+    setOrder(order);
+    console.log('novo estado', order);
+  };
 
   const deliveryCheckButton = (
     <button
-      disabled={ disabled }
+      disabled={ deliveryCheckStatus }
       data-testid={ `${user.role}_order_details__button-delivery-check` }
       type="button"
+      onClick={ handleClick('Entregue') }
     >
       MARCAR COMO ENTREGUE
     </button>
@@ -44,9 +61,10 @@ export default function OrderDetails() {
 
   const dispatchCheckButton = (
     <button
-      disabled={ disabled }
+      disabled={ !dispatchCheckStatus }
       data-testid="seller_order_details__button-dispatch-check"
       type="button"
+      onClick={ handleClick('Em Trânsito') }
     >
       Saiu para entrega
     </button>
@@ -54,8 +72,10 @@ export default function OrderDetails() {
 
   const preparingCheckButton = (
     <button
+      disabled={ preparingCheckStatus }
       data-testid="seller_order_details__button-preparing-check"
       type="button"
+      onClick={ handleClick('Preparando') }
     >
       PREPARAR PEDIDO
     </button>

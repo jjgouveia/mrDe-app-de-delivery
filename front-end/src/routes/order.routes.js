@@ -47,4 +47,14 @@ export const getOrdersBySellerId = async (sellerId, token) => {
   }
 };
 
+export const updateStatusOrderById = async (status, id, token) => {
+  try {
+    await axiosInstance.patch(`/sales/${status}/${id}`, {
+      headers: { Authorization: token },
+    });
+  } catch (err) {
+    return { error: err.response };
+  }
+};
+
 export const t = () => t;

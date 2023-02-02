@@ -30,6 +30,15 @@ const registerSale = async (newSale) => {
     return dataValues;
 };
 
+const updateSales = async (status, id) => {
+    const update = await sale.update({ status }, {
+        where: {
+          id
+        }
+      });
+      return update;
+}
+
 const createSale = async (body) => {
     try {
         const registerResponse = await registerSale(body);
@@ -77,4 +86,5 @@ module.exports = {
     getAllSales,
     getUserSallesById,
     getSellerSallesById,
+    updateSales,
 };

@@ -20,9 +20,16 @@ const getSellerSallesById = async (req, res) => {
   return res.status(200).json(request);
 };
 
+const getupdateSales = async (req, res) => {
+  const { status, id } = req.params;
+  const getup = await service.updateSales(status, id)
+  return res.status(201).json(getup);
+}
+
 module.exports = {
   registerSale,
   getAllSales,
   getUserSallesById,
   getSellerSallesById,
+  getupdateSales,
 };
