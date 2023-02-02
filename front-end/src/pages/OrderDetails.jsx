@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom';
 import NavBar from '../components/navbar';
 import AppContext from '../context/app.context';
 
-// const order2 = JSON.parse(localStorage.getItem('data'));
-
 function formatDate(date) {
   const options = {
     day: '2-digit',
@@ -17,6 +15,7 @@ function formatDate(date) {
 
 export default function OrderDetails() {
   const order = JSON.parse(localStorage.getItem('data'));
+  const user = JSON.parse(localStorage.getItem('user'));
   const { sellers } = useContext(AppContext);
 
   const aux = sellers.find(({ id }) => id === Number(order.sellerId));
@@ -29,6 +28,36 @@ export default function OrderDetails() {
 
   const { id } = useParams();
   const disabled = true;
+
+  const deliveryCheckButton = (
+    <button
+      disabled={ disabled }
+      data-testid={ `${user.role}_order_details__button-delivery-check` }
+      type="button"
+    >
+      MARCAR COMO ENTREGUE
+    </button>
+  );
+
+  const dispatchCheckButton = (
+    <button
+      disabled={ disabled }
+      data-testid="seller_order_details__button-dispatch-check"
+      type="button"
+    >
+      Saiu para entrega
+    </button>
+  );
+
+  const preparingCheckButton = (
+    <button
+      data-testid="seller_order_details__button-preparing-check"
+      type="button"
+    >
+      PREPARAR PEDIDO
+    </button>
+  );
+
   return (
     <div>
       <NavBar />
@@ -37,7 +66,9 @@ export default function OrderDetails() {
         Pedido:
         { ' ' }
         <span
-          data-testid="customer_order_details__element-order-details-label-order-id"
+          data-testid={
+            `${user.role}_order_details__element-order-details-label-order-id`
+          }
         >
           { id }
         </span>
@@ -48,7 +79,9 @@ export default function OrderDetails() {
         Nome:
         { ' ' }
         <span
-          data-testid="customer_order_details__element-order-details-label-seller-name"
+          data-testid={
+            `${user.role}_order_details__element-order-details-label-seller-name`
+          }
         >
           { name }
         </span>
@@ -59,7 +92,9 @@ export default function OrderDetails() {
         Data:
         { ' ' }
         <span
-          data-testid="customer_order_details__element-order-details-label-order-date"
+          data-testid={
+            `${user.role}_order_details__element-order-details-label-order-date`
+          }
         >
           { formatDate(new Date(order.saleDate)) }
         </span>
@@ -70,37 +105,24 @@ export default function OrderDetails() {
         { ' ' }
         <span
           data-testid={
-            `customer_order_details__element-order-details-label-delivery-${'status'}`
+            `${user.role}_order_details__element-order-details-label-delivery-${'status'}`
           }
         >
           { order.status }
           { ' ' }
         </span>
       </span>
-
-      <button
-        disabled={ disabled }
-        data-testid="customer_order_details__button-delivery-check"
-        type="button"
-      >
-        Preparar Pedido
-      </button>
-
+      {user.role === 'customer' ? deliveryCheckButton : ''}
       { ' ' }
-
-      <button
-        data-testid="customer_order_details__button-dispatch-check"
-        type="button"
-      >
-        Saiu para entrega
-      </button>
-
+      {user.role === 'seller' ? dispatchCheckButton : ''}
+      { ' ' }
+      {user.role === 'seller' ? preparingCheckButton : ''}
       <span>
         { ' ' }
         Total:
         { ' ' }
         <span
-          data-testid="customer_order_details__element-order-total-price"
+          data-testid={ `${user.role}_order_details__element-order-total-price` }
         >
           { order.totalPrice.replace('.', ',') }
           { ' ' }
