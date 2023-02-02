@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/navbar';
 import AppContext from '../context/app.context';
+import OrdersP from '../components/OrdersP';
 
 function formatDate(date) {
   const options = {
@@ -17,6 +18,8 @@ export default function OrderDetails() {
   const order = JSON.parse(localStorage.getItem('data'));
   const user = JSON.parse(localStorage.getItem('user'));
   const { sellers } = useContext(AppContext);
+
+  const { role } = user;
 
   const aux = sellers.find(({ id }) => id === Number(order.sellerId));
 
@@ -62,72 +65,79 @@ export default function OrderDetails() {
     <div>
       <NavBar />
       <h2>Detalhes do Pedido</h2>
-      <span>
-        Pedido:
-        { ' ' }
-        <span
-          data-testid={
-            `${user.role}_order_details__element-order-details-label-order-id`
-          }
-        >
-          { id }
-        </span>
-      </span>
-
-      <span>
-        { ' ' }
-        Nome:
-        { ' ' }
-        <span
-          data-testid={
-            `${user.role}_order_details__element-order-details-label-seller-name`
-          }
-        >
-          { name }
-        </span>
-      </span>
-
-      <span>
-        { ' ' }
-        Data:
-        { ' ' }
-        <span
-          data-testid={
-            `${user.role}_order_details__element-order-details-label-order-date`
-          }
-        >
-          { formatDate(new Date(order.saleDate)) }
-        </span>
-      </span>
-      <span>
-        { ' ' }
-        Status:
-        { ' ' }
-        <span
-          data-testid={
-            `${user.role}_order_details__element-order-details-label-delivery-${'status'}`
-          }
-        >
-          { order.status }
+      <div>
+        <span>
+          Pedido:
           { ' ' }
+          <span
+            data-testid={
+              `${role}_order_details__element-order-details-label-order-id`
+            }
+          >
+            { id }
+          </span>
         </span>
-      </span>
-      {user.role === 'customer' ? deliveryCheckButton : ''}
-      { ' ' }
-      {user.role === 'seller' ? dispatchCheckButton : ''}
-      { ' ' }
-      {user.role === 'seller' ? preparingCheckButton : ''}
-      <span>
-        { ' ' }
-        Total:
-        { ' ' }
-        <span
-          data-testid={ `${user.role}_order_details__element-order-total-price` }
-        >
-          { order.totalPrice.replace('.', ',') }
+
+        <span>
           { ' ' }
+          Nome:
+          { ' ' }
+          <span
+            data-testid={
+              `${role}_order_details__element-order-details-label-seller-name`
+            }
+          >
+            { name }
+          </span>
         </span>
-      </span>
+
+        <span>
+          { ' ' }
+          Data:
+          { ' ' }
+          <span
+            data-testid={
+              `${role}_order_details__element-order-details-label-order-date`
+            }
+          >
+            { formatDate(new Date(order.saleDate)) }
+          </span>
+        </span>
+        <span>
+          { ' ' }
+          Status:
+          { ' ' }
+          <span
+            data-testid={
+              `${role}_order_details__element-order-details-label-delivery-${'status'}`
+            }
+          >
+            { order.status }
+            { ' ' }
+          </span>
+        </span>
+        {user.role === 'customer' ? deliveryCheckButton : ''}
+        { ' ' }
+        {user.role === 'seller' ? dispatchCheckButton : ''}
+        { ' ' }
+        {user.role === 'seller' ? preparingCheckButton : ''}
+        <span>
+          { ' ' }
+          Total:
+          { ' ' }
+          <span
+            data-testid={ `${user.role}_order_details__element-order-total-price` }
+          >
+            { order.totalPrice.replace('.', ',') }
+            { ' ' }
+          </span>
+        </span>
+      </div>
+      <div>
+        { order.products.map((el, i) => (
+          <OrdersP key={ i } product={ el } index={ i } />
+        ))}
+      </div>
     </div>
   );
 }
