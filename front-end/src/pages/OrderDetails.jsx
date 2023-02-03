@@ -36,7 +36,7 @@ export default function OrderDetails() {
       setOrder({
         status: orderById.status,
         totalPrice: orderById.totalPrice,
-        products: productListBySaleId,
+        products: productListBySaleId || [],
         saleDate: orderById.saleDate,
         name: allUsers.find((u) => u.id === orderById.sellerId).name,
 
