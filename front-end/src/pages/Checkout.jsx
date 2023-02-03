@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import NavBar from '../components/navbar';
 import OrderProducts from '../components/OrderProducts';
-import { requestOrder } from '../routes/order.routes';
+import { registerSale } from '../routes/order.routes';
 import AppContext from '../context/app.context';
 
 const STATUS_CREATED = 201;
@@ -35,10 +35,10 @@ function Checkout() {
   async function onSubmit(data) {
     const { sellerId } = data;
     localStorage.setItem('data', JSON.stringify({ ...order, sellerId }));
-    const request = await requestOrder({ ...order, ...data }, user?.token);
-    if (request.status === STATUS_CREATED) {
-      setOrder(request.data.id);
-      redirect(`/customer/orders/${request.data.id}`);
+    const newSale = await registerSale({ ...order, ...data }, user?.token);
+    if (newSale.status === STATUS_CREATED) {
+      setOrder(newSale.data.id);
+      redirect(`/customer/orders/${newSale.data.id}`);
     }
   }
 

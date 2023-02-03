@@ -21,7 +21,7 @@ function NavBar() {
       </Link>
 
       <Link
-        to="/customer/orders"
+        to={ `/${JSON.parse(localStorage.getItem('user')).role}/orders` }
         data-testid="customer_products__element-navbar-link-orders"
       >
         Pedidos

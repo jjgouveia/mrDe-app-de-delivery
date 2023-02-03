@@ -1,42 +1,81 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/navbar';
-import AppContext from '../context/app.context';
 import OrdersP from '../components/OrdersP';
-
-function formatDate(date) {
-  const options = {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  };
-  const formattedDate = new Date(date).toLocaleDateString('pt-BR', options);
-  return formattedDate;
-}
+import formatDate from '../utils/formatData';
+import {
+  updateStatusOrderById,
+  getOrderByID,
+  getproductListBySaleId,
+} from '../routes/order.routes';
+import { getUsers } from '../routes/user.routes';
 
 export default function OrderDetails() {
-  const order = JSON.parse(localStorage.getItem('data'));
-  const user = JSON.parse(localStorage.getItem('user'));
-  const { sellers } = useContext(AppContext);
-
-  const { role } = user;
-
-  const aux = sellers.find(({ id }) => id === Number(order.sellerId));
-
-  let name = '';
-
-  if (aux) {
-    name = aux.name;
-  }
-
   const { id } = useParams();
-  const disabled = true;
+  const { role, token } = JSON.parse(localStorage.getItem('user'));
+
+  const [order, setOrder] = useState({
+    status: 'Pendente',
+    totalPrice: '0.00',
+    products: [],
+    saleDate: '0000-00-00T00:00:00.000Z',
+  });
+
+  const [disableButtons, setDisableButtons] = useState({
+    deliveryCheckStatus: order.status !== 'Em Trânsito',
+    dispatchCheckStatus: order.status !== 'Preparando',
+    preparingCheckStatus: order.status !== 'Pendente',
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const allUsers = await getUsers();
+      const orderById = await getOrderByID(id, token);
+      const productListBySaleId = await getproductListBySaleId(id, token);
+      console.log('productListBySaleId ', productListBySaleId);
+      setOrder({
+        status: orderById.status,
+        totalPrice: orderById.totalPrice,
+        products: productListBySaleId || [],
+        saleDate: orderById.saleDate,
+        name: allUsers.find((u) => u.id === orderById.sellerId).name,
+
+      });
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setDisableButtons({
+      deliveryCheckStatus: order.status !== 'Em Trânsito',
+      dispatchCheckStatus: order.status !== 'Preparando',
+      preparingCheckStatus: order.status !== 'Pendente',
+    });
+  }, [order.status]);
+
+  const handleClick = async (status) => {
+    await updateStatusOrderById({ status }, id, token);
+
+    const orderById = await getOrderByID(id, token);
+
+    setOrder({
+      ...order,
+      status: orderById.status,
+    });
+  };
+
+  const {
+    deliveryCheckStatus,
+    dispatchCheckStatus,
+    preparingCheckStatus,
+  } = disableButtons;
 
   const deliveryCheckButton = (
     <button
-      disabled={ disabled }
-      data-testid={ `${user.role}_order_details__button-delivery-check` }
+      disabled={ deliveryCheckStatus }
+      data-testid="customer_order_details__button-delivery-check"
       type="button"
+      onClick={ async () => { handleClick('Entregue'); } }
     >
       MARCAR COMO ENTREGUE
     </button>
@@ -44,9 +83,10 @@ export default function OrderDetails() {
 
   const dispatchCheckButton = (
     <button
-      disabled={ disabled }
+      disabled={ dispatchCheckStatus }
       data-testid="seller_order_details__button-dispatch-check"
       type="button"
+      onClick={ async () => { handleClick('transito'); } }
     >
       Saiu para entrega
     </button>
@@ -54,12 +94,33 @@ export default function OrderDetails() {
 
   const preparingCheckButton = (
     <button
+      disabled={ preparingCheckStatus }
       data-testid="seller_order_details__button-preparing-check"
       type="button"
+      onClick={ async () => { handleClick('Preparando'); } }
     >
       PREPARAR PEDIDO
     </button>
   );
+
+  const sellerName = (
+    <span>
+      P. Vend:
+      <span
+        data-testid={
+          `${role}_order_details__element-order-details-label-seller-name`
+        }
+      >
+        { order.name }
+      </span>
+    </span>
+  );
+
+  console.log('OORDEER', order);
+
+  const statusDataTestId = role === 'customer'
+    ? `${role}_order_details__element-order-details-label-delivery-status-${id}`
+    : `${role}_order_details__element-order-details-label-delivery-status`;
 
   return (
     <div>
@@ -77,20 +138,7 @@ export default function OrderDetails() {
             { id }
           </span>
         </span>
-
-        <span>
-          { ' ' }
-          Nome:
-          { ' ' }
-          <span
-            data-testid={
-              `${role}_order_details__element-order-details-label-seller-name`
-            }
-          >
-            { name }
-          </span>
-        </span>
-
+        {role === 'customer' ? sellerName : ''}
         <span>
           { ' ' }
           Data:
@@ -103,30 +151,20 @@ export default function OrderDetails() {
             { formatDate(new Date(order.saleDate)) }
           </span>
         </span>
-        <span>
-          { ' ' }
-          Status:
-          { ' ' }
-          <span
-            data-testid={
-              `${role}_order_details__element-order-details-label-delivery-${'status'}`
-            }
-          >
-            { order.status }
-            { ' ' }
-          </span>
-        </span>
-        {user.role === 'customer' ? deliveryCheckButton : ''}
+
+        <span data-testid={ statusDataTestId }>{ order.status }</span>
+
+        {role === 'customer' ? deliveryCheckButton : ''}
         { ' ' }
-        {user.role === 'seller' ? dispatchCheckButton : ''}
+        {role === 'seller' ? dispatchCheckButton : ''}
         { ' ' }
-        {user.role === 'seller' ? preparingCheckButton : ''}
+        {role === 'seller' ? preparingCheckButton : ''}
         <span>
           { ' ' }
           Total:
           { ' ' }
           <span
-            data-testid={ `${user.role}_order_details__element-order-total-price` }
+            data-testid={ `${role}_order_details__element-order-total-price` }
           >
             { order.totalPrice.replace('.', ',') }
             { ' ' }
