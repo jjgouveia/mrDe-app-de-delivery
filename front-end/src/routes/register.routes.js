@@ -19,7 +19,6 @@ export const postRegister = async (registerValues) => {
 };
 
 export const postRegisterManager = async (body, token) => {
-  // console.log('REQUEST BODY FRONTEND', body);
   try {
     const request = await axiosInstance.post('/managerRegister', body, {
       headers: { Authorization: token },

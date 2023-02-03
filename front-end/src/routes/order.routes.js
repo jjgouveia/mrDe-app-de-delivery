@@ -1,6 +1,6 @@
 import axiosInstance from './axios';
 
-export const requestOrder = async (body, token) => {
+export const registerSale = async (body, token) => {
   try {
     const request = await axiosInstance.post('/sales', body, {
       headers: { Authorization: token },
@@ -66,6 +66,56 @@ export const updateStatusOrderById = async (body, id, token) => {
     });
   } catch (err) {
     return { error: err.response };
+  }
+};
+
+export const getAllProducts = async () => {
+  try {
+    const request = await axiosInstance.get('/products', {
+    });
+
+    return request.data;
+  } catch (err) {
+    return { error: err.response };
+  }
+};
+
+export const getproductListBySaleId = async (saleId, token) => {
+  try {
+    const request = await axiosInstance.get(`/products/${saleId}`, {
+      headers: { Authorization: token },
+    });
+
+    const allProducts = await getAllProducts();
+
+    // console.log('allProducts', allProducts);
+    const requestCopy = request.data.slice();
+
+    const allProductsCopy = allProducts.slice();
+
+    console.log('allProductsCopy', allProductsCopy);
+
+    const productListWithSaleId = requestCopy.map((productWithSaleId) => {
+      const productFinded = allProductsCopy
+        .find((product) => productWithSaleId.product_id === product.id);
+      const mappedList = {
+        ...productWithSaleId,
+        name: productFinded.name,
+        productId: productFinded.id,
+        quantity: productWithSaleId.quantity,
+        subTotal: (Number(productWithSaleId.quantity) * Number(productFinded.price)),
+        unitPrice: productFinded.price,
+      };
+      return mappedList;
+    });
+
+    // console.log('NEW PRODUCT LIST ', productListWithSaleId);
+
+    // console.log('OLD PRODUCT LIST ', request.data);
+
+    return productListWithSaleId;
+  } catch (err) {
+    return { err };
   }
 };
 
