@@ -6,10 +6,12 @@ const getAllProducts = async () => {
     return allProducts;
 };
 
+const SALE_ID = 'sale_id';
+
 const getProductListBySaleId = async (saleId) => {
     const productsList = await salesProducts.findAll({
       where: {
-        ['sale_id']: saleId,
+        [SALE_ID]: saleId,
       },
       // include: [{
       //   model: product,
