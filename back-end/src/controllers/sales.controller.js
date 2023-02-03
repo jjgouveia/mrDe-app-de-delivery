@@ -20,16 +20,27 @@ const getSellerSallesById = async (req, res) => {
   return res.status(200).json(request);
 };
 
-const getupdateSales = async (req, res) => {
-  const { status, id } = req.params;
-  const getup = await service.updateSales(status, id)
-  return res.status(201).json(getup);
+const getOrderById = async (req, res) => {
+  const request = await service.getOrderById(req.params.order_id);
+  return res.status(200).json(request);
+};
+
+const updateSales = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  let reqStatus = status;
+  if (status === 'transito') {
+    reqStatus = 'Em Trânsito';
 }
+  const getup = await service.updateSales(reqStatus, id);
+  return res.status(201).json(getup);
+};
 
 module.exports = {
   registerSale,
   getAllSales,
   getUserSallesById,
   getSellerSallesById,
-  getupdateSales,
+  updateSales,
+  getOrderById,
 };

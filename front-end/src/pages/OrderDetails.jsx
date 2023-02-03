@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
+// import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/navbar';
 import AppContext from '../context/app.context';
 import OrdersP from '../components/OrdersP';
-import { updateStatusOrderById } from '../routes/order.routes';
+import { updateStatusOrderById, getOrderByID } from '../routes/order.routes';
 
 function formatDate(date) {
   const options = {
@@ -16,44 +17,86 @@ function formatDate(date) {
 }
 
 export default function OrderDetails() {
-  const orderLocalStorage = JSON.parse(localStorage.getItem('data'));
+  const { id } = useParams();
   const user = JSON.parse(localStorage.getItem('user'));
-  const { sellers } = useContext(AppContext);
+  const { role, token } = user;
+
+  const orderLocalStorage = JSON.parse(localStorage.getItem('data'));
 
   const [order, setOrder] = useState(orderLocalStorage);
 
-  const { role, token } = user;
+  const [disableButtons, setDisableButtons] = useState({
+    deliveryCheckStatus: order.status !== 'Em Trânsito',
+    dispatchCheckStatus: order.status !== 'Preparando',
+    preparingCheckStatus: order.status !== 'Pendente',
+  });
 
-  const aux = sellers.find(({ id }) => id === Number(order.sellerId));
+  useEffect(() => {
+    const fetchData = async () => {
+      const orderById = await getOrderByID(id, token);
+      localStorage.setItem('data', JSON.stringify({
+        ...orderLocalStorage, status: orderById.status,
+      }));
 
+      // setDisableButtons({
+      //   deliveryCheckStatus: order.status === 'Em Trânsito',
+      //   dispatchCheckStatus: order.status !== 'Preparando',
+      //   preparingCheckStatus: order.status !== 'Pendente',
+      // });
+
+      // setOrder({
+      //   ...orderLocalStorage, status: orderById.status,
+      // });
+      // const orderLocalStorage = JSON.parse(localStorage.getItem('data'));
+      // setOrder(JSON.parse(localStorage.getItem('data')));
+    };
+    fetchData();
+  }, [id, token, orderLocalStorage]);
+
+  /// //////////////////////////////////////////////////////////////////////////////////
+
+  const { sellers } = useContext(AppContext);
+  const sellerName = sellers.find((seller) => seller.id === Number(order.sellerId));
   let name = '';
-
-  if (aux) {
-    name = aux.name;
+  if (sellerName) {
+    name = sellerName.name;
   }
 
-  const { id } = useParams();
-  const deliveryCheckStatus = order.status !== 'Em Trânsito';
-  const dispatchCheckStatus = order.status === 'Pendente';
-  const preparingCheckStatus = order.status !== 'Preparando';
+  /// //////////////////////////////////////////////////////////////////////////////////
 
   const handleClick = async (status) => {
-    await updateStatusOrderById(status, id, token);
-    console.log('novo status', order.status);
-    order.status = status;
-    console.log('nova order', order);
-    localStorage.setItem('date', JSON.stringify(order));
-    console.log('novo localStorage', JSON.parse(localStorage.getItem('data')));
-    setOrder(order);
-    console.log('novo estado', order);
+    await updateStatusOrderById({ status }, id, token);
+
+    const orderById = await getOrderByID(id, token);
+
+    localStorage.setItem('data', JSON.stringify({ ...order, status: orderById.status }));
+    // console.log('novo localStorage', JSON.parse(localStorage.getItem('data')));
+    setOrder({
+      ...order, status: orderById.status,
+    });
+    setDisableButtons({
+      deliveryCheckStatus: order.status === 'Em Trânsito',
+      dispatchCheckStatus: order.status !== 'Preparando',
+      preparingCheckStatus: order.status !== 'Pendente',
+    });
+    // console.log('novo estado', order);
   };
+
+  const {
+    deliveryCheckStatus,
+    dispatchCheckStatus,
+    preparingCheckStatus,
+  } = disableButtons;
+
+  // console.log('STATUS PARA O BOTÃO', order.status);
+  // console.log('BOTÃO', deliveryCheckStatus);
 
   const deliveryCheckButton = (
     <button
       disabled={ deliveryCheckStatus }
       data-testid={ `${user.role}_order_details__button-delivery-check` }
       type="button"
-      onClick={ handleClick('Entregue') }
+      onClick={ async () => { handleClick('Entregue'); } }
     >
       MARCAR COMO ENTREGUE
     </button>
@@ -61,10 +104,10 @@ export default function OrderDetails() {
 
   const dispatchCheckButton = (
     <button
-      disabled={ !dispatchCheckStatus }
+      disabled={ dispatchCheckStatus }
       data-testid="seller_order_details__button-dispatch-check"
       type="button"
-      onClick={ handleClick('Em Trânsito') }
+      onClick={ async () => { handleClick('transito'); } }
     >
       Saiu para entrega
     </button>
@@ -75,7 +118,7 @@ export default function OrderDetails() {
       disabled={ preparingCheckStatus }
       data-testid="seller_order_details__button-preparing-check"
       type="button"
-      onClick={ handleClick('Preparando') }
+      onClick={ async () => { handleClick('Preparando'); } }
     >
       PREPARAR PEDIDO
     </button>
@@ -129,7 +172,7 @@ export default function OrderDetails() {
           { ' ' }
           <span
             data-testid={
-              `${role}_order_details__element-order-details-label-delivery-${'status'}`
+              `${role}_order_details__element-order-details-label-delivery-status`
             }
           >
             { order.status }
@@ -157,6 +200,21 @@ export default function OrderDetails() {
         { order.products.map((el, i) => (
           <OrdersP key={ i } product={ el } index={ i } />
         ))}
+      </div>
+      <div>
+        <button
+          type="button"
+          onClick={ () => {
+            const resetedLocalStorage = {
+              ...order,
+              status: 'Pendente',
+            };
+            // console.log(resetedLocalStorage);
+            localStorage.setItem('data', JSON.stringify(resetedLocalStorage));
+          } }
+        >
+          RESETAR LOCALSTORAGE
+        </button>
       </div>
     </div>
   );
