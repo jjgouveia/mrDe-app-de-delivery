@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap') ;
-
 * {
   margin: 0;
   padding: 0;
@@ -25,12 +23,12 @@
 }
 
 .boas-vindas h1 {
-  font-family: 'Poppins';
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 55px;
 }
 
 .boas-vindas p {
-  font-family: 'Poppins';
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20px;
 }
 
@@ -65,7 +63,7 @@
 
 .titulo-login {
   color:  rebeccapurple;
-  font-family: 'Poppins';
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 45px;
   margin-bottom: 7px;
 }
@@ -81,6 +79,7 @@
   border-radius: 5px;
   padding: 10px;
   width: 100%;
+  font-weight: 700;
 }
 
 .criar-conta-btn {
@@ -88,10 +87,11 @@
   padding: 0;
   background-color: rebeccapurple;
   border: 2px solid rebeccapurple;
-  color: rebeccapurple;
+  color: white;
   text-align: center;
   cursor: pointer;
-  font-family: 'Poppins';
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 700;
   margin: 0;
 }
 
@@ -102,7 +102,7 @@
   background-color: rebeccapurple;
   height: 45px;
   cursor: pointer;
-  font-family: 'Poppins';
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .login-btn:disabled {
@@ -112,7 +112,7 @@
 
 .invalid {
   color: red;
-  font-family: 'Poppins';
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   padding-top: 10px;
 }
 
