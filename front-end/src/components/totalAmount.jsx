@@ -22,7 +22,7 @@ function TotalAmount() {
         onClick={ () => { navigate('/customer/checkout'); } }
         disabled={ totalValue === (0).toFixed(2).replace('.', ',') }
       >
-        <span>Ver Carrinho: R$</span>
+        <span>Ver Carrinho: R$ </span>
         {`${totalValue || 0}`}
       </button>
     </div>

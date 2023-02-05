@@ -43,7 +43,7 @@ export default function CardProducts(props) {
     <div className="card-product">
       <div className="price">
         <span>
-          R$:
+          R$
           { ' ' }
         </span>
         <span
