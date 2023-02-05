@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerSchema } from '../validations/schemas';
+import '../css/Register.css';
 // import { postRegister } from '../routes/register.routes';
 
 export default function Register() {
@@ -76,17 +77,16 @@ export default function Register() {
 
   return (
     <section className="form-container">
-      <h1>
-        Cadastre-se
-      </h1>
       <form method="post" onSubmit={ (e) => handleSubmit(e) }>
+        <h1 className="title-cadastro">
+          Cadastre-se
+        </h1>
         <div className="form-group">
           <label htmlFor="name">
-            <span>Nome:</span>
             <input
               type="text"
               name="name"
-              placeholder="Ex.: Ada Lovelace"
+              placeholder="Nome: Ex.: Ada Lovelace"
               data-testid="common_register__input-name"
               minLength={ 12 }
               value={ registerValues.name }
@@ -94,18 +94,16 @@ export default function Register() {
             />
           </label>
           <label htmlFor="email">
-            <span>Email:</span>
             <input
               type="email"
               name="email"
-              placeholder="Ex.: adalovelace@zebirita.com"
+              placeholder="Email: Ex.: adalovelace@zebirita.com"
               data-testid="common_register__input-email"
               value={ registerValues.email }
               onChange={ handleChange }
             />
           </label>
           <label htmlFor="password">
-            <span>Senha:</span>
             <input
               type="password"
               name="password"
@@ -118,6 +116,7 @@ export default function Register() {
         </div>
         <div className="container-register-button">
           <button
+            className="cad-btn"
             type="submit"
             data-testid="common_register__button-register"
             disabled={ isDisabled }
