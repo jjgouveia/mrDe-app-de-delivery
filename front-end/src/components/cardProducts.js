@@ -40,52 +40,56 @@ export default function CardProducts(props) {
   }, [addLocalStorage, product, quantity, updateTotal]);
 
   return (
-    <div>
-      <h3
-        data-testid={ `customer_products__element-card-title-${id}` }
-      >
-        { name }
-      </h3>
-
+    <div className="card-product">
+      <div className="price">
+        <span>
+          R$:
+          { ' ' }
+        </span>
+        <span
+          data-testid={ `customer_products__element-card-price-${id}` }
+        >
+          { product.price.replace(/\./, ',') }
+        </span>
+      </div>
       <img
         className="product-img"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ image }
         alt="imagem do produto"
       />
-      <div>
-        <p>
-          R$
-        </p>
-        <p
-          data-testid={ `customer_products__element-card-price-${id}` }
+
+      <p
+        data-testid={ `customer_products__element-card-title-${id}` }
+      >
+        { name }
+      </p>
+
+      <div className="controls">
+        <button
+          onClick={ addItem }
+          type="button"
+          data-testid={ `customer_products__button-card-add-item-${id}` }
         >
-          { product.price.replace(/\./, ',') }
-        </p>
+          +
+        </button>
+
+        <input
+          type="text"
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          value={ quantity }
+          onChange={ changeManualQuantity }
+        />
+
+        <button
+          onClick={ removeItem }
+          type="button"
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+        >
+          -
+        </button>
       </div>
 
-      <button
-        onClick={ addItem }
-        type="button"
-        data-testid={ `customer_products__button-card-add-item-${id}` }
-      >
-        Adicionar
-      </button>
-
-      <button
-        onClick={ removeItem }
-        type="button"
-        data-testid={ `customer_products__button-card-rm-item-${id}` }
-      >
-        Remover
-      </button>
-
-      <input
-        type="number"
-        data-testid={ `customer_products__input-card-quantity-${id}` }
-        value={ quantity }
-        onChange={ changeManualQuantity }
-      />
     </div>
   );
 }

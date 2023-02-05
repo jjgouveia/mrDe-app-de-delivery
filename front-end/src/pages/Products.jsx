@@ -4,6 +4,7 @@ import NavBar from '../components/navbar';
 import CardProducts from '../components/cardProducts';
 import AppContext from '../context/app.context';
 import TotalAmount from '../components/totalAmount';
+import '../css/Products.css';
 
 function updateTotal(setTotalPrice) {
   if (localStorage.getItem('carrinho')) {
@@ -72,9 +73,8 @@ export default function Products() {
   return (
     <>
       <NavBar />
-      <h1>Produtos</h1>
       <TotalAmount />
-      <div>
+      <div className="cards-products">
         {
           products && products?.map((product) => (
             <CardProducts

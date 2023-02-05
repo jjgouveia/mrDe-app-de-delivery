@@ -124,16 +124,19 @@ export default function Register() {
             Cadastrar
           </button>
         </div>
+        { loginErrorMessage && (
+          <p
+            className="email-utilizado"
+            data-testid="common_register__element-invalid_register"
+          >
+            Email já utilizado. Deseja
+            {' '}
+            <a href="/recover">recuperar a senha</a>
+            {' '}
+            ?
+          </p>
+        ) }
       </form>
-      { loginErrorMessage && (
-        <h2 data-testid="common_register__element-invalid_register">
-          Email já utilizado. Deseja
-          {' '}
-          <a href="/recover">recuperar a senha</a>
-          {' '}
-          ?
-        </h2>
-      ) }
     </section>
   );
 }

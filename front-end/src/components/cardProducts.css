@@ -1,3 +1,62 @@
+body {
+  background-color: rgb(230, 233, 233);
+}
+
 .product-img {
   height: 100px;
+}
+
+.card-product {
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.151);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  padding: 20px 0;
+  text-align: center;
+  transition: 0.2s;
+  width: 220px;
+}
+
+.card-product:hover {
+  box-shadow: 2px 2px 25px rgba(0, 0, 0, 0.089);
+  transform: scale(1.05);
+}
+
+.card-product button {
+  background-color: rebeccapurple;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  font-weight: 700;
+  height: 32px;
+  width: 32px;
+}
+
+.card-product input {
+  border: 1px solid rgb(172, 172, 172);
+  border-radius: 8px;
+  height: 32px;
+  text-align: center;
+  width: 32px;
+}
+
+.price {
+  background-color: white;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.171);
+  color: rgb(43, 139, 5);
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  font-weight: 700;
+  padding: 5px 30px;
+  position: relative;
+}
+
+.controls {
+  display: flex;
+  gap: 5px;
 }

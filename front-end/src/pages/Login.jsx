@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { login } from '../routes/auth.routes';
 import { loginSchema } from '../validations/schemas';
-import logoBranca from '../images/02_branco.png';
-import logoRoxa from '../images/02_roxo.png';
+import logoBranca from '../images/01_branco.png';
+import logoRoxa from '../images/01_roxo.png';
 import '../css/Login.css';
 
 export default function Login() {
