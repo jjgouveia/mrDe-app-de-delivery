@@ -1,17 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
-
 * {
   margin: 0;
   padding: 0;
 }
 
 .form-container form, .boas-vindas {
-  background-color: rgb(255, 255, 255);
-  width: 100%;
+  align-items: center;
+  background-color: white;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .form-container {
@@ -21,26 +19,21 @@
 
 .boas-vindas {
   background-color: rebeccapurple;
-  /* background-image: url('../images/fundo.jpeg');
-  background-repeat: no-repeat;
-  background-size: cover; */
   color: white;
 }
 
 .boas-vindas h1 {
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
   font-size: 55px;
-  font-family: 'Poppins';
 }
 
 .boas-vindas p {
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
   font-size: 20px;
-  font-family: 'Poppins';
 }
 
 .logoLogin {
-  /* border: 1px solid red; */
   text-align: center;
-  /* margin-bottom: 2px; */
 }
 
 .logoLogin h2 {
@@ -48,73 +41,68 @@
 }
 
 .logoLogin img {
-  width: 250px;
   margin-bottom: 20px;
+  width: 250px;
 }
 
 .form-group {
- /* border: 1px solid red; */
- width: 350px;
- height: max-content;
- /* border-radius: 15px; */
- /* padding: 10px; */
- display: flex;
- flex-direction: column;
- gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: max-content;
+  width: 350px;
 }
 
 .form-group input {
-  width: 100%;
+  border: 1px solid rgb(172, 171, 171);
+  border-radius: 5px;
   height: 45px;
   padding: 10px;
-  border-radius: 5px;
-  border: 1px solid rgb(172, 171, 171);
+  width: 100%;
 }
 
 .titulo-login {
+  color: rebeccapurple;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
   font-size: 45px;
-  color:  rebeccapurple;
   margin-bottom: 7px;
-  font-family: 'Poppins';
 }
 
 .button-group-login {
-  /* border: 1px solid red; */
-  width: 350px;
   display: flex;
   flex-direction: column;
   gap: 18px;
+  width: 350px;
 }
 
 .button-group-login button {
+  border-radius: 5px;
+  font-weight: 700;
   padding: 10px;
   width: 100%;
-  border-radius: 5px;
 }
 
 .criar-conta-btn {
+  background: none;
+  background-color: rebeccapurple;
+  border: 2px solid rebeccapurple;
+  color: white;
+  cursor: pointer;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  font-weight: 700;
+  margin: 0;
   padding: 0;
   text-align: center;
-  border: 2px solid rebeccapurple;
-  background-color: rebeccapurple;
-  background: none;
-  /* text-decoration: underline; */
-  margin: 0;
-  cursor: pointer;
-  color: rebeccapurple;
-  color: rebeccapurple;
-  font-family: 'Poppins';
 }
 
 .login-btn {
-  margin-top: 10px;
-  border: none;
-  height: 45px;
-  color: white;
-  font-family: 'Poppins';
-  /* font-size: 15px; */
   background-color: rebeccapurple;
+  border: none;
+  color: white;
   cursor: pointer;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  height: 45px;
+  margin-top: 10px;
 }
 
 .login-btn:disabled {
@@ -123,19 +111,19 @@
 }
 
 .invalid {
-  padding-top: 10px;
   color: red;
-  font-family: 'Poppins';
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  padding-top: 10px;
 }
 
 .logo-login2 {
-  width: 200px;
-  margin-bottom: 5%;
   display: none;
+  margin-bottom: 5%;
+  width: 200px;
 }
 
-@media (max-width: 869px)
-{
+@media ( max-width : 869px ) {
+
   .boas-vindas {
     display: none;
   }
@@ -155,9 +143,9 @@
 
   .form-group {
     width: 90%;
-   }
+  }
 
-   .button-group-login {
-    width: 90%;;
+  .button-group-login {
+    width: 90%;
   }
 }

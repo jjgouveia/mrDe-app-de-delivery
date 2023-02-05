@@ -1,31 +1,31 @@
 .title-cadastro {
-  font-family: 'Poppins';
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
   font-size: 40px;
   margin-bottom: 20px;
 }
 
 .cad-btn {
-  width: 350px;
+  background-color: rebeccapurple;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  font-weight: 700;
   margin-top: 20px;
   padding: 12px;
-  border: none;
-  background-color: rebeccapurple;
-  color: white;
-  font-family: 'Poppins';
-  border-radius: 5px;
-  /* font-size: 12px; */
+  width: 350px;
 }
 
 .cad-btn:disabled {
   background-color: rgb(196, 160, 233);
-  /* color: white; */
 }
 
-@media (max-width: 869px)
-{
+@media ( max-width : 869px ) {
+
   .container-register-button {
     width: 90%;
   }
+
   .cad-btn {
     width: 100%;
   }
@@ -34,4 +34,5 @@
     font-size: 30px;
     margin-bottom: 20px;
   }
+
 }
