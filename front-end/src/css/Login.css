@@ -4,12 +4,12 @@
 }
 
 .form-container form, .boas-vindas {
+  align-items: center;
   background-color: white;
   display: flex;
-  align-items: center;
-  width: 100%;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
 }
 
 .form-container {
@@ -23,12 +23,12 @@
 }
 
 .boas-vindas h1 {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
   font-size: 55px;
 }
 
 .boas-vindas p {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
   font-size: 20px;
 }
 
@@ -46,24 +46,24 @@
 }
 
 .form-group {
- display: flex;
- height: max-content;
- flex-direction: column;
- width: 350px;
- gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: max-content;
+  width: 350px;
 }
 
 .form-group input {
-  height: 45px;
   border: 1px solid rgb(172, 171, 171);
-  width: 100%;
   border-radius: 5px;
+  height: 45px;
   padding: 10px;
+  width: 100%;
 }
 
 .titulo-login {
-  color:  rebeccapurple;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rebeccapurple;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
   font-size: 45px;
   margin-bottom: 7px;
 }
@@ -71,38 +71,38 @@
 .button-group-login {
   display: flex;
   flex-direction: column;
-  width: 350px;
   gap: 18px;
+  width: 350px;
 }
 
 .button-group-login button {
   border-radius: 5px;
+  font-weight: 700;
   padding: 10px;
   width: 100%;
-  font-weight: 700;
 }
 
 .criar-conta-btn {
   background: none;
-  padding: 0;
   background-color: rebeccapurple;
   border: 2px solid rebeccapurple;
   color: white;
-  text-align: center;
   cursor: pointer;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
   font-weight: 700;
   margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
 .login-btn {
+  background-color: rebeccapurple;
   border: none;
   color: white;
-  margin-top: 10px;
-  background-color: rebeccapurple;
-  height: 45px;
   cursor: pointer;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  height: 45px;
+  margin-top: 10px;
 }
 
 .login-btn:disabled {
@@ -112,7 +112,7 @@
 
 .invalid {
   color: red;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
   padding-top: 10px;
 }
 
@@ -123,6 +123,7 @@
 }
 
 @media ( max-width : 869px ) {
+
   .boas-vindas {
     display: none;
   }
@@ -145,6 +146,6 @@
   }
 
   .button-group-login {
-    width: 90%;;
+    width: 90%;
   }
 }

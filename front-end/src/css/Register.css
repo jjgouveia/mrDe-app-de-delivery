@@ -5,15 +5,15 @@
 }
 
 .cad-btn {
+  background-color: rebeccapurple;
   border: none;
   border-radius: 5px;
-  background-color: rebeccapurple;
   color: white;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  font-weight: 700;
   margin-top: 20px;
   padding: 12px;
-  font-family: Verdana , Geneva , Tahoma , sans-serif;
   width: 350px;
-  font-weight: 700;
 }
 
 .cad-btn:disabled {
