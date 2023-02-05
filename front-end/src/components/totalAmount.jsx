@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppContext from '../context/app.context';
+import '../css/totalAmount.css';
 
 function TotalAmount() {
   const { products } = useContext(AppContext);
@@ -15,6 +16,7 @@ function TotalAmount() {
   return (
     <div>
       <button
+        className="cart-btn"
         type="button"
         data-testid="customer_products__button-cart"
         onClick={ () => { navigate('/customer/checkout'); } }

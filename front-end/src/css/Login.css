@@ -42,7 +42,7 @@
 
 .logoLogin img {
   margin-bottom: 20px;
-  width: 250px;
+  width: 150px;
 }
 
 .form-group {
@@ -65,7 +65,7 @@
   color: rebeccapurple;
   font-family: Verdana , Geneva , Tahoma , sans-serif;
   font-size: 45px;
-  margin-bottom: 7px;
+  margin-bottom: 20px;
 }
 
 .button-group-login {
@@ -118,8 +118,8 @@
 
 .logo-login2 {
   display: none;
-  margin-bottom: 5%;
-  width: 200px;
+  margin-bottom: 40px;
+  width: 135px;
 }
 
 @media ( max-width : 869px ) {

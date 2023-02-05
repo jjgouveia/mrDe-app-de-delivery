@@ -1,0 +1,19 @@
+.cart-btn {
+  background-color: rebeccapurple;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 15px 60px;
+  position: fixed;
+  right: 3%;
+  top: 88%;
+  z-index: 999;
+}
+
+.cart-btn:disabled {
+  background-color: rgb(196, 160, 233);
+  color: white;
+}
