@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .form-container form, .boas-vindas {
   background-color: rgb(255, 255, 255);
   width: 100%;
@@ -23,12 +28,13 @@
 }
 
 .boas-vindas h1 {
-  font-size: 60px;
+  font-size: 55px;
   font-family: 'Poppins';
 }
 
 .boas-vindas p {
   font-size: 20px;
+  font-family: 'Poppins';
 }
 
 .logoLogin {
@@ -42,8 +48,8 @@
 }
 
 .logoLogin img {
-  border-radius: 100%;
-  width: 100px;
+  width: 250px;
+  margin-bottom: 20px;
 }
 
 .form-group {
@@ -51,7 +57,7 @@
  width: 350px;
  height: max-content;
  /* border-radius: 15px; */
- padding: 10px;
+ /* padding: 10px; */
  display: flex;
  flex-direction: column;
  gap: 20px;
@@ -74,7 +80,7 @@
 
 .button-group-login {
   /* border: 1px solid red; */
-  width: 48%;
+  width: 350px;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -120,4 +126,38 @@
   padding-top: 10px;
   color: red;
   font-family: 'Poppins';
+}
+
+.logo-login2 {
+  width: 200px;
+  margin-bottom: 5%;
+  display: none;
+}
+
+@media (max-width: 869px)
+{
+  .boas-vindas {
+    display: none;
+  }
+
+  .form-container {
+    display: flex;
+    height: 80vh;
+  }
+
+  .titulo-login {
+    display: none;
+  }
+
+  .logo-login2 {
+    display: block;
+  }
+
+  .form-group {
+    width: 90%;
+   }
+
+   .button-group-login {
+    width: 90%;;
+  }
 }
