@@ -1,31 +1,30 @@
 .title-cadastro {
-  font-family: 'Poppins';
+  font-family: Poppins;
   font-size: 40px;
   margin-bottom: 20px;
 }
 
 .cad-btn {
-  width: 350px;
   margin-top: 20px;
+  width: 350px;
   padding: 12px;
-  border: none;
   background-color: rebeccapurple;
+  border: none;
   color: white;
-  font-family: 'Poppins';
   border-radius: 5px;
-  /* font-size: 12px; */
+  font-family: Poppins;
 }
 
 .cad-btn:disabled {
   background-color: rgb(196, 160, 233);
-  /* color: white; */
 }
 
-@media (max-width: 869px)
-{
+@media ( max-width : 869px ) {
+
   .container-register-button {
     width: 90%;
   }
+
   .cad-btn {
     width: 100%;
   }
@@ -34,4 +33,5 @@
     font-size: 30px;
     margin-bottom: 20px;
   }
+
 }
