@@ -2,6 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { login } from '../routes/auth.routes';
 import { loginSchema } from '../validations/schemas';
+import logoBranca from '../images/02_branco.png';
+import logoRoxa from '../images/02_roxo.png';
+import '../css/Login.css';
 
 export default function Login() {
   const location = useLocation();
@@ -87,13 +90,20 @@ export default function Login() {
 
   return (
     <section className="form-container">
-      <h1>
-        Zé Birita
-      </h1>
+      <div className="boas-vindas">
+        <div className="logoLogin">
+          <img className="logo-login" src={ logoBranca } alt="logo" />
+          {/* <h2>Sua Logo</h2>
+          <p>seu slogan</p> */}
+        </div>
+        <h1>Seja bem vindo</h1>
+        <p>Faça o login ou Inscreva-se</p>
+      </div>
       <form method="post" onSubmit={ (e) => handleSubmit(e) }>
+        <img className="logo-login2" src={ logoRoxa } alt="logo" />
+        <h2 className="titulo-login">Login</h2>
         <div className="form-group">
           <label htmlFor="email">
-            <span>Login</span>
             <input
               type="email"
               name="email"
@@ -104,7 +114,6 @@ export default function Login() {
             />
           </label>
           <label htmlFor="password">
-            <span>Senha</span>
             <input
               type="password"
               name="password"
@@ -118,6 +127,7 @@ export default function Login() {
         </div>
         <div className="button-group-login">
           <button
+            className="login-btn"
             type="submit"
             data-testid="common_login__button-login"
             disabled={ isDisabled }
@@ -126,19 +136,23 @@ export default function Login() {
           </button>
           <Link to="/register">
             <button
+              className="criar-conta-btn"
               data-testid="common_login__button-register"
               type="button"
             >
-              Ainda não tenho conta
+              Criar conta
             </button>
           </Link>
         </div>
+        {loginErrorMessage && (
+          <p
+            className="invalid"
+            data-testid="common_login__element-invalid-email"
+          >
+            Usuário ou senha inválidos
+          </p>
+        )}
       </form>
-      {loginErrorMessage && (
-        <h2 data-testid="common_login__element-invalid-email">
-          Usuário ou senha inválidos
-        </h2>
-      )}
     </section>
   );
 }
