@@ -53,7 +53,6 @@ export default function Manage() {
     },
     [registerValues, validateInput],
   );
-
   return (
     <div className="manager-container">
       <div className="navBar">
@@ -131,13 +130,20 @@ export default function Manage() {
         </h2>
 
       ) }
+      <div className="user-list-title">
+        <h3>
+          Lista de usuários
+        </h3>
+      </div>
       <div className="user-list-section">
-        <div>
-          <h1>
-            Lista de usuários
-          </h1>
-        </div>
-        <div className="user-main-container">
+        <div style={ { display: 'flex' } } className="user-main-container">
+          <div style={ { display: 'flex' } } className="table-properties">
+            <div className="table-id">Item</div>
+            <div className="table-name">Nome</div>
+            <div className="table-email">E-mail</div>
+            <div className="table-role">Tipo</div>
+            <div className="table-button">Excluir</div>
+          </div>
           {
             usersFiltered.map((u, i) => {
               const cardList = (

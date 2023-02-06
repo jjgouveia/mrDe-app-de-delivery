@@ -15,8 +15,8 @@ function CardUsers(props) {
   const { useDetails } = props;
   const { id, name, email, role } = useDetails;
   return (
-    <div className="user-container">
-      <div>
+    <div style={ { display: 'flex' } } className="user-container">
+      <div style={ { display: 'flex' } } className="user-container-id">
         <span
           data-testid={ `admin_manage__element-user-table-item-number-${id}` }
         >
@@ -24,17 +24,17 @@ function CardUsers(props) {
 
         </span>
       </div>
-      <div>
+      <div style={ { display: 'flex' } } className="user-container-name">
         <span data-testid={ `admin_manage__element-user-table-name-${id}` }>
           {name}
         </span>
       </div>
-      <div>
+      <div style={ { display: 'flex' } } className="user-container-email">
         <span data-testid={ `admin_manage__element-user-table-email-${id}` }>
           {email}
         </span>
       </div>
-      <div>
+      <div style={ { display: 'flex' } } className="user-container-role">
         <span
           data-testid={
             `admin_manage__element-user-table-role-${id}`
@@ -43,7 +43,7 @@ function CardUsers(props) {
           {role}
         </span>
       </div>
-      <div>
+      <div style={ { display: 'flex' } } className="user-container-button">
         <button
           data-testid={ `admin_manage__element-user-table-remove-${id}` }
           type="submit"

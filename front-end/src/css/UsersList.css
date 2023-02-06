@@ -1,6 +1,59 @@
 .user-container {
+  background-color: rgb(225, 218, 231);
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
   display: 'flex';
-  flex-direction: column;
+  flex-direction: row;
+  gap: 20px;
   padding: '10px';
   text-align: 'center';
 }
+
+.user-container div {
+  align-items: center;
+  flex-direction: row;
+  font-weight: 700;
+  height: 30px;
+  justify-content: center;
+  text-align: center;
+}
+
+.user-container-id {
+  background-color: rgb(113, 76, 151);
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  color: white;
+  width: 30px;
+}
+
+.user-container-name {
+  background-color: rgb(181, 136, 223);
+  width: 250px;
+}
+
+.user-container-email {
+  background-color: rgb(113, 76, 151);
+  color: white;
+  width: 250px;
+}
+
+.user-container-role {
+  background-color: rgb(181, 136, 223);
+  width: 100px;
+}
+
+.user-container-button button {
+  background-color: rebeccapurple;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  font-weight: 700;
+  padding: 5px;
+  width: 100px;
+}
+
+.user-container-button button:active {
+  background-color: rgb(78, 21, 134);
+}
+

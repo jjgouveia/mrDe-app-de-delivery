@@ -1,6 +1,5 @@
 .manager-container {
   align-items: center;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
 }
@@ -56,9 +55,11 @@
   color: white;
   font-family: Verdana , Geneva , Tahoma , sans-serif;
   font-weight: 700;
-  margin-top: 20px;
-  padding: 12px;
   width: 100px;
+}
+
+.cad-btn:active {
+  background-color: rgb(78, 21, 134);
 }
 
 .email-utilizado {
@@ -70,10 +71,61 @@
 }
 
 .user-list-section {
+  border: rgb(196, 160, 233);
+  border-radius: 5px;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.151);
   display: 'flex';
-  padding: 20px;
+  padding: 10px;
+}
+
+
+.user-list-title {
+  padding-bottom: 10px;
+  padding-left: 25px;
+  padding-top: 20px;
+  width: 55em;
 }
 
 .user-main-container {
   display: 'flex';
+  flex-flow: column wrap;
+  gap: 20px;
+}
+
+.table-properties {
+  display: 'flex';
+  flex-direction: row;
+  gap: 20px;
+  text-align: 'center';
+}
+
+.table-properties div {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  font-size: small;
+  height: 20px;
+  justify-content: center;
+  text-align: center;
+}
+
+.table-id {
+  padding-left: 5px;
+  width: 30px;
+}
+
+.table-name {
+  width: 250px;
+}
+
+.table-email {
+  width: 250px;
+}
+
+.table-role {
+  width: 100px;
+}
+
+.table-button {
+  width: 100px;
 }
