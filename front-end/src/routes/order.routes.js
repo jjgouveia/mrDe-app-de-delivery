@@ -88,12 +88,9 @@ export const getproductListBySaleId = async (saleId, token) => {
 
     const allProducts = await getAllProducts();
 
-    // console.log('allProducts', allProducts);
     const requestCopy = request.data.slice();
 
     const allProductsCopy = allProducts.slice();
-
-    console.log('allProductsCopy', allProductsCopy);
 
     const productListWithSaleId = requestCopy.map((productWithSaleId) => {
       const productFinded = allProductsCopy
@@ -108,10 +105,6 @@ export const getproductListBySaleId = async (saleId, token) => {
       };
       return mappedList;
     });
-
-    // console.log('NEW PRODUCT LIST ', productListWithSaleId);
-
-    // console.log('OLD PRODUCT LIST ', request.data);
 
     return productListWithSaleId;
   } catch (err) {

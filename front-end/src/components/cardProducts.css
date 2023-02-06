@@ -38,6 +38,10 @@ body {
   width: 32px;
 }
 
+.card-product button:active {
+  background-color: rgb(78, 21, 134);
+}
+
 .card-product input {
   border: 1px solid rgb(172, 172, 172);
   border-radius: 8px;

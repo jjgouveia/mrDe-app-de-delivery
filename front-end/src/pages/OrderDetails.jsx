@@ -32,7 +32,6 @@ export default function OrderDetails() {
       const allUsers = await getUsers();
       const orderById = await getOrderByID(id, token);
       const productListBySaleId = await getproductListBySaleId(id, token);
-      console.log('productListBySaleId ', productListBySaleId);
       setOrder({
         status: orderById.status,
         totalPrice: orderById.totalPrice,
@@ -115,8 +114,6 @@ export default function OrderDetails() {
       </span>
     </span>
   );
-
-  console.log('OORDEER', order);
 
   const statusDataTestId = role === 'customer'
     ? `${role}_order_details__element-order-details-label-delivery-status-${id}`
