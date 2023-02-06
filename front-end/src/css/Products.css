@@ -1,8 +1,7 @@
 .cards-products {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: max-content max-content max-content max-content max-content;
-  margin: 0 auto;
-  margin-top: 50px;
-  width: max-content;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px 0;
 }
