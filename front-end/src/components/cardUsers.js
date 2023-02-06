@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { deleteUserById } from '../routes/user.routes';
 import AppContext from '../context/app.context';
+import '../css/UsersList.css';
 
 function CardUsers(props) {
   const { setUsers } = useContext(AppContext);
@@ -12,13 +13,10 @@ function CardUsers(props) {
   };
 
   const { useDetails } = props;
-  const borderSolidBlac = '2px solid black';
   const { id, name, email, role } = useDetails;
   return (
-    <div style={ { display: 'flex', padding: '10px', textAlign: 'center' } }>
-      <div style={ { border: borderSolidBlac, padding: '2px' } }>
-        <strong>Item: </strong>
-        { ' ' }
+    <div className="user-container">
+      <div>
         <span
           data-testid={ `admin_manage__element-user-table-item-number-${id}` }
         >
@@ -26,23 +24,17 @@ function CardUsers(props) {
 
         </span>
       </div>
-      <div style={ { border: borderSolidBlac, padding: '2px' } }>
-        <strong>Nome </strong>
-        { ' ' }
+      <div>
         <span data-testid={ `admin_manage__element-user-table-name-${id}` }>
           {name}
         </span>
       </div>
-      <div style={ { border: borderSolidBlac, padding: '2px' } }>
-        <strong>Email </strong>
-        { ' ' }
+      <div>
         <span data-testid={ `admin_manage__element-user-table-email-${id}` }>
           {email}
         </span>
       </div>
-      <div style={ { border: borderSolidBlac, padding: '2px' } }>
-        <strong>Tipo </strong>
-        { ' ' }
+      <div>
         <span
           data-testid={
             `admin_manage__element-user-table-role-${id}`
@@ -51,9 +43,7 @@ function CardUsers(props) {
           {role}
         </span>
       </div>
-      <div style={ { border: borderSolidBlac, padding: '2px' } }>
-        <strong>Remover item: </strong>
-        { ' ' }
+      <div>
         <button
           data-testid={ `admin_manage__element-user-table-remove-${id}` }
           type="submit"
@@ -68,17 +58,5 @@ function CardUsers(props) {
 CardUsers.propTypes = {
   useDetails: PropTypes
     .objectOf(Object).isRequired,
-  // updateRender: PropTypes.number.isRequired,
-  // useDetails: PropTypes
-  //   .objectOf(Object),
 };
-
-// CardUsers.defaultProps = {
-//   useDetails: {
-//     aux: true,
-//     setAux: () => {},
-//     role: 'customer',
-//   },
-// };
-
 export default CardUsers;

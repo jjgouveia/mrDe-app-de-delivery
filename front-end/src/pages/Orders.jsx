@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import NavBar from '../components/navbar';
 import ProductP from '../components/productsP';
 import { getOrdersByUserId, getOrdersBySellerId } from '../routes/order.routes';
+import '../css/OrderList.css';
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
@@ -28,8 +29,7 @@ export default function Orders() {
   return (
     <div>
       <NavBar />
-      <h1>Pedidos</h1>
-      <div>
+      <div className="order-list">
         { orders?.map(
           (product, i) => (<ProductP product={ product } key={ i } role={ role } />),
         )}

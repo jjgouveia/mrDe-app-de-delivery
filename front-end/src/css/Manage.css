@@ -1,0 +1,79 @@
+.manager-container {
+  align-items: center;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.navBar {
+  align-self: flex-start;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.title {
+  font-size: medium;
+  padding: 20px;
+  width: fit-content;
+}
+
+.form-group-manage {
+  border-radius: 5px;
+  box-shadow: 2px 2px 25px rgba(0, 0, 0, 0.089);
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  height: max-content;
+  padding: 20px;
+  text-align: center;
+  width: fit-content;
+}
+
+
+.form-group-manage p {
+  font-weight: 800;
+  padding-bottom: 5px;
+}
+
+.form-group-manage input {
+  border: 1px solid rgb(172, 171, 171);
+  border-radius: 5px;
+  height: 45px;
+  padding: 10px;
+}
+
+.form-group-manage select {
+  border: 1px solid rgb(172, 171, 171);
+  border-radius: 5px;
+  height: 45px;
+  padding: 10px;
+}
+
+.cad-btn {
+  background-color: rebeccapurple;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  font-weight: 700;
+  margin-top: 20px;
+  padding: 12px;
+  width: 100px;
+}
+
+.email-utilizado {
+  margin-top: 20px;
+}
+
+.cad-btn:disabled {
+  background-color: rgb(196, 160, 233);
+}
+
+.user-list-section {
+  display: 'flex';
+  padding: 20px;
+}
+
+.user-main-container {
+  display: 'flex';
+}
