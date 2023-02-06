@@ -1,0 +1,75 @@
+a {
+  color: -webkit-link;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.order-container {
+  background-image: linear-gradient(to top, rgb(215, 184, 250), rgba(255, 0, 0, 0));
+  border-radius: 5px;
+  box-shadow: 0 2px 3px black;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 10px;
+  transition: 0.2s;
+  width: 100%;
+}
+
+.order-container:hover {
+  box-shadow: 0 4px 6px  black;
+  transform: scale(1.05);
+}
+
+.order-element {
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 1px 1px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+}
+
+.data-and-price {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.order-number {
+  font-size: small;
+}
+
+.order-status {
+  font-size: large;
+  font-weight: 600;
+}
+
+.status-color-Em-Trânsito {
+  background-image: linear-gradient(to top, rgb(184, 250, 241), rgba(203, 255, 15, 0));
+}
+
+.status-color-Preparando {
+  background-image: linear-gradient(to top, rgb(184, 250, 241), rgba(203, 255, 15, 0));
+}
+
+.status-color-Entregue {
+  background-image: linear-gradient(to top, teal, rgba(255, 0, 0, 0));
+}
+
+
+.status-color-Pendente {
+  background-image: linear-gradient(to top, rgb(238, 255, 0), rgba(255, 0, 0, 0));
+}
+
+.order-date {
+  font-weight: 600;
+}
+
+.order-price {
+  flex-direction: row;
+  font-weight: 600;
+  gap: 5px;
+}
+

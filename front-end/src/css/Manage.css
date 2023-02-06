@@ -1,0 +1,131 @@
+.manager-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.navBar {
+  align-self: flex-start;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.title {
+  font-size: medium;
+  padding: 20px;
+  width: fit-content;
+}
+
+.form-group-manage {
+  border-radius: 5px;
+  box-shadow: 2px 2px 25px rgba(0, 0, 0, 0.089);
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  height: max-content;
+  padding: 20px;
+  text-align: center;
+  width: fit-content;
+}
+
+
+.form-group-manage p {
+  font-weight: 800;
+  padding-bottom: 5px;
+}
+
+.form-group-manage input {
+  border: 1px solid rgb(172, 171, 171);
+  border-radius: 5px;
+  height: 45px;
+  padding: 10px;
+}
+
+.form-group-manage select {
+  border: 1px solid rgb(172, 171, 171);
+  border-radius: 5px;
+  height: 45px;
+  padding: 10px;
+}
+
+.cad-btn {
+  background-color: rebeccapurple;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  font-weight: 700;
+  width: 100px;
+}
+
+.cad-btn:active {
+  background-color: rgb(78, 21, 134);
+}
+
+.email-utilizado {
+  margin-top: 20px;
+}
+
+.cad-btn:disabled {
+  background-color: rgb(196, 160, 233);
+}
+
+.user-list-section {
+  border: rgb(196, 160, 233);
+  border-radius: 5px;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.151);
+  display: 'flex';
+  padding: 10px;
+}
+
+
+.user-list-title {
+  padding-bottom: 10px;
+  padding-left: 25px;
+  padding-top: 20px;
+  width: 55em;
+}
+
+.user-main-container {
+  display: 'flex';
+  flex-flow: column wrap;
+  gap: 20px;
+}
+
+.table-properties {
+  display: 'flex';
+  flex-direction: row;
+  gap: 20px;
+  text-align: 'center';
+}
+
+.table-properties div {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  font-size: small;
+  height: 20px;
+  justify-content: center;
+  text-align: center;
+}
+
+.table-id {
+  padding-left: 5px;
+  width: 30px;
+}
+
+.table-name {
+  width: 250px;
+}
+
+.table-email {
+  width: 250px;
+}
+
+.table-role {
+  width: 100px;
+}
+
+.table-button {
+  width: 100px;
+}

@@ -1,19 +1,13 @@
 import React, { useCallback, useEffect, useState, useContext } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { registerSchema } from '../validations/schemas';
 import NavBar from '../components/navbar';
 import { postRegisterManager } from '../routes/register.routes';
 import CardUsers from '../components/cardUsers';
 import AppContext from '../context/app.context';
+import '../css/Manage.css';
 
 export default function Manage() {
   const { users, setUsers } = useContext(AppContext);
-
-  // const usersFiltered = users.filter((e) => e.role !== 'administrator');
-
-  // const [usersState, setUsers] = useState(users);
-
-  // const [updateRender, setUpdateRender] = useState(0);
 
   const usersFiltered = users.filter((e) => e.role !== 'administrator');
 
@@ -59,50 +53,55 @@ export default function Manage() {
     },
     [registerValues, validateInput],
   );
-
   return (
-    <div>
-      <NavBar />
-      <h1>Cadastrar novo usuário</h1>
-      <form method="post" onSubmit={ (e) => handleSubmit(e) }>
-        <div className="form-group">
-          <label htmlFor="name">
-            <span>Nome:</span>
-            <input
-              type="text"
-              name="name"
-              placeholder="Ex.: Ada Lovelace"
-              data-testid="admin_manage__input-name"
-              minLength={ 12 }
-              value={ registerValues.name }
-              onChange={ handleChange }
-            />
-          </label>
-          <label htmlFor="email">
-            <span>Email:</span>
-            <input
-              type="email"
-              name="email"
-              placeholder="Ex.: adalovelace@zebirita.com"
-              data-testid="admin_manage__input-email"
-              value={ registerValues.email }
-              onChange={ handleChange }
-            />
-          </label>
-          <label htmlFor="password">
-            <span>Senha:</span>
-            <input
-              type="password"
-              name="password"
-              placeholder="Digite uma senha"
-              data-testid="admin_manage__input-password"
-              value={ registerValues.password }
-              onChange={ handleChange }
-            />
-          </label>
-        </div>
+    <div className="manager-container">
+      <div className="navBar">
+        <NavBar />
+      </div>
+      <div className="title">
+        <h1>Cadastrar novo usuário</h1>
+      </div>
+      <form
+        method="post"
+        className="form-group-manage"
+        onSubmit={ (e) => handleSubmit(e) }
+      >
+        <label htmlFor="name">
+          <p>Nome:</p>
+          <input
+            type="text"
+            name="name"
+            placeholder="Ex.: Ada Lovelace"
+            data-testid="admin_manage__input-name"
+            minLength={ 12 }
+            value={ registerValues.name }
+            onChange={ handleChange }
+          />
+        </label>
+        <label htmlFor="email">
+          <p>Email:</p>
+          <input
+            type="email"
+            name="email"
+            placeholder="Ex.: adalovelace@zebirita.com"
+            data-testid="admin_manage__input-email"
+            value={ registerValues.email }
+            onChange={ handleChange }
+          />
+        </label>
+        <label htmlFor="password">
+          <p>Senha:</p>
+          <input
+            type="password"
+            name="password"
+            placeholder="Digite uma senha"
+            data-testid="admin_manage__input-password"
+            value={ registerValues.password }
+            onChange={ handleChange }
+          />
+        </label>
         <label htmlFor="role">
-          <p>Type</p>
+          <p>Tipo</p>
           <select
             type="role"
             name="role"
@@ -116,6 +115,7 @@ export default function Manage() {
         </label>
         <div className="container-register-button">
           <button
+            className="cad-btn"
             type="submit"
             data-testid="admin_manage__button-register"
             disabled={ isDisabled }
@@ -130,29 +130,33 @@ export default function Manage() {
         </h2>
 
       ) }
-      <section>
-        <div>
-          <h1>
-            Lista de usuários
-          </h1>
-        </div>
-        <div>
+      <div className="user-list-title">
+        <h3>
+          Lista de usuários
+        </h3>
+      </div>
+      <div className="user-list-section">
+        <div style={ { display: 'flex' } } className="user-main-container">
+          <div style={ { display: 'flex' } } className="table-properties">
+            <div className="table-id">Item</div>
+            <div className="table-name">Nome</div>
+            <div className="table-email">E-mail</div>
+            <div className="table-role">Tipo</div>
+            <div className="table-button">Excluir</div>
+          </div>
           {
             usersFiltered.map((u, i) => {
               const cardList = (
-                <div key={ i }>
-                  <CardUsers
-                    useDetails={ u }
-                    // update={ updateRender }
-                  />
-
-                </div>
+                <CardUsers
+                  useDetails={ u }
+                  key={ i }
+                />
               );
               return cardList;
             })
           }
         </div>
-      </section>
+      </div>
     </div>
   );
 }
