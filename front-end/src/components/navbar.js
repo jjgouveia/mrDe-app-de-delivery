@@ -5,29 +5,28 @@ import logoBranca from '../images/02_branco.png';
 import iconUsuario from '../images/usuario.png';
 import '../css/navbar.css';
 
-const segsAnimation = 0.3;
+// const segsAnimation = 0.3;
 
-function animateLink() {
-  const links = document.querySelectorAll('.link');
-  links.forEach((link, index) => {
-    link.style.animation = link.style.animation
-      ? ''
-      : `navFade 0.5s ease forwards ${(index / 2) * segsAnimation}s`;
-  });
-}
+// function animateLink() {
+//   const links = document.querySelectorAll('.link');
+//   links.forEach((link, index) => {
+//     link.style.animation = link.style.animation
+//       ? ''
+//       : `navFade 0.5s ease forwards ${(index / 2) * segsAnimation}s`;
+//   });
+// }
 
 function handleClick() {
   const nav = document.querySelector('#nav');
   const sam = document.querySelector('.sanduba');
   nav.classList.toggle('active');
   sam.classList.toggle('active');
-  animateLink();
+  // animateLink();
 }
 
 function NavBar() {
   const [dataUser, setDataUser] = useState();
-  const [loading, setLoading] = useState(true);
-  const [redirect, setRedirect] = useState(!JSON.parse(localStorage.getItem('user')));
+  const [redirect, setRedirect] = useState(true);
   const [url, setUrl] = useState(useLocation().pathname.split('/'));
 
   if (!url) {
@@ -39,7 +38,6 @@ function NavBar() {
 
   useEffect(() => {
     setDataUser(JSON.parse(localStorage.getItem('user')));
-    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -103,6 +101,6 @@ function NavBar() {
       </button>
     </header>
   ) : (<Navigate to="/login" />);
-  return loading ? (<h3>Loading</h3>) : content;
+  return content;
 }
 export default NavBar;

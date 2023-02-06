@@ -57,13 +57,13 @@ export default function Register() {
         if (data === USER_CONFLICT) {
           setLoginErrorMessage(true);
         } else {
-          redirect(data.role);
           localStorage.setItem('user', JSON.stringify({
             id: data.id,
             name: data.name,
             email: data.email,
             role: data.role,
             token: data.token }));
+          redirect(data.role);
         }
       });
   };

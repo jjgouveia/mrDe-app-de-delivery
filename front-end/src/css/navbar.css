@@ -132,7 +132,7 @@ span {
     top: 12vh;
     transform: translate(100%);
     transition: transform 0.3s ease-in;
-    width: 75vw;
+    width: 250px;
     z-index: 2;
   }
 
