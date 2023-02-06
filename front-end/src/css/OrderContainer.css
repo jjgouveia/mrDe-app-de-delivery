@@ -47,11 +47,11 @@ a {
 }
 
 .status-color-Em-Trânsito {
-  background-color: rgb(0, 255, 170);
+  background-image: linear-gradient(to top, rgb(184, 250, 241), rgba(203, 255, 15, 0));
 }
 
 .status-color-Preparando {
-  background-image: linear-gradient(to top, rgb(215, 184, 250), rgba(255, 0, 0, 0));
+  background-image: linear-gradient(to top, rgb(184, 250, 241), rgba(203, 255, 15, 0));
 }
 
 .status-color-Entregue {
