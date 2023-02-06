@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../css/OrderProducts.css';
 
 function OrderProducts(props) {
-  const borderSolidBlac = '2px solid black';
   const { product, updateCheckout } = props;
   const { id, name, productId, quantity, subTotal, unitPrice } = product;
   return (
-    <div style={ { display: 'flex', padding: '10px', textAlign: 'center' } }>
-      <div style={ { border: borderSolidBlac, padding: '2px' } }>
-        <strong>Item: </strong>
-        { ' ' }
+    <div className="card-order">
+      <div className="elem-order color-purple">
         <span
           data-testid={ `customer_checkout__element-order-table-item-number-${id}` }
         >
@@ -17,23 +15,20 @@ function OrderProducts(props) {
 
         </span>
       </div>
-      <div style={ { border: borderSolidBlac, padding: '2px' } }>
-        <strong>Descrição: </strong>
-        { ' ' }
+      <div className="elem-order diferente aux">
         <span data-testid={ `customer_checkout__element-order-table-name-${id}` }>
           {name}
         </span>
       </div>
-      <div style={ { border: borderSolidBlac, padding: '2px' } }>
-        <strong>Quantidade: </strong>
-        { ' ' }
+      <div className="elem-order roxo-fraco">
         <span data-testid={ `customer_checkout__element-order-table-quantity-${id}` }>
           {quantity}
         </span>
       </div>
-      <div style={ { border: borderSolidBlac, padding: '2px' } }>
-        <strong>Valor Unitário: </strong>
-        { ' ' }
+      <div className="elem-order sem-radius">
+        <span>
+          R$
+        </span>
         <span
           data-testid={
             `customer_checkout__element-order-table-unit-price-${id}`
@@ -42,9 +37,10 @@ function OrderProducts(props) {
           {unitPrice.replace(/\./, ',')}
         </span>
       </div>
-      <div style={ { border: borderSolidBlac, padding: '2px' } }>
-        <strong>Sub-total: </strong>
-        { ' ' }
+      <div className="elem-order roxo-fraco">
+        <span>
+          R$
+        </span>
         <span
           data-testid={
             `customer_checkout__element-order-table-sub-total-${id}`
@@ -53,29 +49,26 @@ function OrderProducts(props) {
           {subTotal.toFixed(2).toString().replace(/\./, ',')}
         </span>
       </div>
-      <div style={ { border: borderSolidBlac, padding: '2px' } }>
-        <strong>Remover item: </strong>
-        { ' ' }
-        <button
-          onClick={ () => {
-            const cart = JSON.parse(localStorage.getItem('carrinho'));
+      <button
+        className="elem-order radius-direito"
+        onClick={ () => {
+          const cart = JSON.parse(localStorage.getItem('carrinho'));
 
-            cart.forEach((el) => {
-              if (el.productId === productId) {
-                el.quantity = 0;
-              }
-            });
+          cart.forEach((el) => {
+            if (el.productId === productId) {
+              el.quantity = 0;
+            }
+          });
 
-            localStorage.setItem('carrinho', JSON.stringify(cart));
-            const v = updateCheckout.aux;
-            updateCheckout.setAux(!v);
-          } }
-          data-testid={ `customer_checkout__element-order-table-remove-${id}` }
-          type="submit"
-        >
-          Remover
-        </button>
-      </div>
+          localStorage.setItem('carrinho', JSON.stringify(cart));
+          const v = updateCheckout.aux;
+          updateCheckout.setAux(!v);
+        } }
+        data-testid={ `customer_checkout__element-order-table-remove-${id}` }
+        type="submit"
+      >
+        x
+      </button>
     </div>
   );
 }

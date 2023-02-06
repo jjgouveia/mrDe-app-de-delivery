@@ -1,0 +1,85 @@
+* {
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  font-weight: 700;
+}
+
+.card-order {
+  display: flex;
+  height: 48px;
+}
+
+.elem-order {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  width: 20%;
+}
+
+.diferente {
+  background-color: rgb(235, 235, 235);
+  color: rebeccapurple;
+  width: 100%;
+}
+
+.color-purple {
+  background-color: rebeccapurple;
+  border-radius: 5px 0 0 5px;
+  color: white;
+}
+
+.sem-radius {
+  background-color: rebeccapurple;
+  color: white;
+}
+
+.radius-direito {
+  background-color: rgb(190, 9, 9);
+  border: none;
+  border-radius: 0 5px 5px 0;
+  color: white;
+  cursor: pointer;
+}
+
+.roxo-fraco {
+  background-color: rgb(159, 104, 214);
+  color: white;
+}
+
+.header-table {
+  background-color: rgb(158, 79, 238);
+  border-radius: 5px;
+  color: white;
+  height: 10px;
+}
+
+@media ( max-width : 869px ) {
+
+  .card-order {
+    font-size: 9px;
+    height: 25px;
+  }
+
+  .radius-direito {
+    font-size: 12px;
+  }
+
+  .elem-order {
+    width: 15%;
+  }
+
+  .aux {
+    width: 500px;
+  }
+
+  .aux2 {
+    width: 68%;
+  }
+
+  .aux3 {
+    padding: 9.5px;
+    width: 13%;
+  }
+
+}
+

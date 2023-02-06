@@ -2,7 +2,7 @@
   font-family: Verdana , Geneva , Tahoma , sans-serif;
 }
 
-nav {
+.header {
   align-items: center;
   background-color: rebeccapurple;
   box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.199);
@@ -14,8 +14,13 @@ nav {
   text-decoration: none;
 }
 
+nav {
+  display: flex;
+  width: 100%;
+}
+
 .logo-nav {
-  width: 180px;
+  width: 140px;
 }
 
 .links {
@@ -47,7 +52,7 @@ nav {
 .mais {
   align-items: center;
   display: flex;
-  gap: 20px;
+  gap: 40px;
   justify-content: center;
 }
 
@@ -67,4 +72,105 @@ span {
 .selected {
   background-color: white;
   color: rebeccapurple;
+}
+
+.sanduba {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+
+  /* display: flex; */
+  flex-direction: column;
+  gap: 7px;
+  user-select: none;
+}
+
+.sanduba div {
+  background: rgb(253, 253, 253);
+  border-radius: 10px;
+  height: 3px;
+  transition: 0.3s;
+  width: 32px;
+}
+
+.mais span {
+  align-items: center;
+  display: flex;
+  font-weight: 700;
+  gap: 5px;
+  justify-content: center;
+}
+
+
+@media ( max-width : 869px ) {
+
+  .branco {
+    border-radius: 0;
+    width: 100%;
+  }
+
+  .links {
+    gap: 2px;
+  }
+
+  .header {
+    justify-content: space-between;
+  }
+
+  nav {
+    align-items: center;
+    background-color: rebeccapurple;
+    box-shadow: -5px 10px 10px rgba(0, 0, 0, 0.295);
+    display: none;
+    flex-direction: column;
+    gap: 50px;
+    height: 100%;
+    padding-top: 3%;
+    position: absolute;
+    right: 0;
+    top: 12vh;
+    transform: translate(100%);
+    transition: transform 0.3s ease-in;
+    width: 250px;
+    z-index: 2;
+  }
+
+  .links, .mais {
+    flex-direction: column;
+  }
+
+  .nav.active {
+    display: flex;
+    transform: translateX(0);
+  }
+
+  @keyframes navFade {
+
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .sanduba {
+    display: flex;
+  }
+
+  .sanduba.active .line1 {
+    transform: rotate(-45deg) translate(-7px, 7px);
+  }
+
+  .sanduba.active .line2 {
+    opacity: 0;
+  }
+
+  .sanduba.active .line3 {
+    transform: rotate(45deg) translate(-7px, -7px);
+  }
 }
